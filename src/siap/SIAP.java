@@ -1,6 +1,7 @@
 package siap;
 
 import Koneksi.Koneksi;
+import Views.FrmMenu;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +20,11 @@ public class SIAP {
      */
     public static void main(String[] args) {
         Koneksi conn = new Koneksi();
-        conn.getKoneksi();
+        if (conn.getKoneksi() != null) {
+            FrmMenu menu = new FrmMenu();
+            menu.setVisible(true);
+        }
+        
     }
     
 }
