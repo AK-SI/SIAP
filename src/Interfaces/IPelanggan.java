@@ -5,10 +5,17 @@
  */
 package Interfaces;
 
+import Entity.Pelanggan;
+import java.util.List;
+
 /**
  *
  * @author su
  */
 public interface IPelanggan {
-    
+    boolean insertPelanggan(Pelanggan pl);
+    boolean updatePelanggan(Pelanggan pl);
+    boolean deletePelanggan(String id);
+    List selectPelanggan(String id, String nama);
+    String generateIDPelanggan();
 }

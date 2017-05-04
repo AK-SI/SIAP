@@ -20,7 +20,7 @@ import java.util.List;
 public class ImKaryawan implements IKaryawan{
     private String query;
     private KoneksiDB koneksi;
-    private boolean status =false;
+    private boolean status;
     private ResultSet rsKaryawan, rsGenID;
     private List<Karyawan> listKaryawan;
     

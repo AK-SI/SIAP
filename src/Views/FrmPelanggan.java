@@ -5,19 +5,129 @@
  */
 package Views;
 
+import Entity.Pelanggan;
+import Factory.Factory;
+import Interfaces.IPelanggan;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author su
  */
 public class FrmPelanggan extends javax.swing.JFrame {
-
+    private int baris;
+    private boolean newRecord, needSave, status;
+    private DefaultTableModel dtmPelanggan;
+    private String[] tableHeader;
+    private IPelanggan pelangganDAO;
+    private List<Pelanggan> listPelanggan;
+    private Pelanggan pl;
+    
     /**
      * Creates new form FrmPelanggan
      */
     public FrmPelanggan() {
         initComponents();
+        setLocationRelativeTo(this);
+        pelangganDAO =  Factory.getPelangganDAO();
+        tableHeader = new String[]{
+            "ID",
+            "Nama",
+            "No. Telp",
+            "Alamat"
+        };
+        dtmPelanggan = new DefaultTableModel(null, tableHeader);
+        tablePelanggan.setModel(dtmPelanggan);
+        tablePelanggan.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                forgotSave();
+                cmdDelete.setEnabled(true);
+                baris = tablePelanggan.getSelectedRow();
+                if (baris>=0) {
+                    txtId.setText(dtmPelanggan.getValueAt(baris, 0).toString());
+                    txtNama.setText(dtmPelanggan.getValueAt(baris, 1).toString());
+                    txtNo.setText(dtmPelanggan.getValueAt(baris, 2).toString());
+                    txtAlamat.setText(dtmPelanggan.getValueAt(baris, 3).toString());
+                }
+            }
+            
+        });
+        
+        refreshTablePelanggan();
+        cmdDelete.setEnabled(false);
+        cmdSave.setEnabled(false);
     }
-
+    
+    private void refreshTablePelanggan(){
+        listPelanggan= pelangganDAO.selectPelanggan(txtSearch.getText(),txtSearch.getText());
+        dtmPelanggan = (DefaultTableModel) tablePelanggan.getModel();
+        dtmPelanggan.setRowCount(0);
+        
+       for (Pelanggan data:listPelanggan){
+           dtmPelanggan.addRow(new Object[]{
+               data.getId_pelanggan(),
+               data.getNama(),
+               data.getTelpon(),
+               data.getAlamat()
+           });
+       }
+        if (tablePelanggan.getRowCount()>0) {
+            baris = tablePelanggan.getRowCount()-1;
+            tablePelanggan.setRowSelectionInterval(baris, baris);
+        }
+    }
+    
+    private void saveRecord(){
+        pl = new Pelanggan();
+        pl.setId_pelanggan(txtId.getText());
+        pl.setNama(txtNama.getText());
+        pl.setTelpon(txtNo.getText());
+        pl.setAlamat(txtAlamat.getText());
+        
+        if (newRecord) {
+            status = pelangganDAO.insertPelanggan(pl);
+            newRecord=false;
+        }else{
+            status = pelangganDAO.updatePelanggan(pl);
+        }
+        
+        if (!status) {
+            JOptionPane.showMessageDialog(null, "Data tidak tersimpan.", "Informasi",JOptionPane.INFORMATION_MESSAGE);
+        }
+        needSave=false;
+        cmdSave.setEnabled(false);
+        refreshTablePelanggan();
+    }
+    
+    private void clearText(){
+        txtId.setText("");
+        txtNama.setText("");
+        txtNo.setText("");
+        txtAlamat.setText("");
+        txtSearch.setText("");
+    }
+    
+    private void forgotSave(){
+        if (needSave) {
+            if (JOptionPane.showConfirmDialog(null, "Data yang diubah belum disimpan. Simpan sekarang?",
+                    "Simpan perubahan?", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION) {
+                saveRecord();
+            }
+        }
+        needSave=false;
+        newRecord=false;
+    }
+    
+    private void recordChanged(){
+        needSave=true;
+        cmdSave.setEnabled(true);
+        cmdDelete.setEnabled(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,22 +137,221 @@ public class FrmPelanggan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtNama = new javax.swing.JTextField();
+        txtNo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtAlamat = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cmdNew = new javax.swing.JButton();
+        cmdSave = new javax.swing.JButton();
+        cmdDelete = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablePelanggan = new javax.swing.JTable();
+        txtSearch = new javax.swing.JTextField();
+        cmdRefresh = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Data Pelanggan");
+
+        jLabel1.setText("ID Pelanggan");
+
+        txtId.setEditable(false);
+
+        jLabel2.setText("Nama");
+
+        txtNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNamaKeyTyped(evt);
+            }
+        });
+
+        txtNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNoKeyTyped(evt);
+            }
+        });
+
+        jLabel3.setText("No. Telp");
+
+        txtAlamat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAlamatKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setText("Alamat");
+
+        cmdNew.setText("New");
+        cmdNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdNewActionPerformed(evt);
+            }
+        });
+
+        cmdSave.setText("Save");
+        cmdSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSaveActionPerformed(evt);
+            }
+        });
+
+        cmdDelete.setText("Delete");
+        cmdDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdDeleteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmdNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtAlamat)
+                    .addComponent(txtNo)
+                    .addComponent(txtNama)
+                    .addComponent(txtId)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cmdSave, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmdDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdNew)
+                    .addComponent(cmdSave)
+                    .addComponent(cmdDelete))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tablePelanggan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablePelanggan);
+
+        cmdRefresh.setText("Refresh");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(83, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmdRefresh))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdNewActionPerformed
+        // TODO add your handling code here:
+        forgotSave();
+        newRecord =true;
+        needSave = true;
+        clearText();
+        cmdDelete.setEnabled(false);
+        txtId.setText(pelangganDAO.generateIDPelanggan());
+    }//GEN-LAST:event_cmdNewActionPerformed
+
+    private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
+        // TODO add your handling code here:
+        saveRecord();
+        clearText();
+    }//GEN-LAST:event_cmdSaveActionPerformed
+
+    private void txtNamaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaKeyTyped
+        // TODO add your handling code here:
+        recordChanged();
+    }//GEN-LAST:event_txtNamaKeyTyped
+
+    private void txtNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNoKeyTyped
+        // TODO add your handling code here:
+        recordChanged();
+    }//GEN-LAST:event_txtNoKeyTyped
+
+    private void txtAlamatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlamatKeyTyped
+        // TODO add your handling code here:
+        recordChanged();
+    }//GEN-LAST:event_txtAlamatKeyTyped
+
+    private void cmdDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDeleteActionPerformed
+        // TODO add your handling code here:
+        forgotSave();
+        if (JOptionPane.showConfirmDialog(null, txtNama.getText() + 
+                " akan di hapus dari daftar pelanggan. Lanjutkan?",
+                "Hapus" + txtNama.getText(),
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            status = pelangganDAO.deletePelanggan(txtId.getText());
+        }
+        if (!status) {
+            JOptionPane.showMessageDialog(null, 
+                    "Pelanggan pernah bertransaksi disini.", 
+                    "Tidak dihapus.",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        cmdDelete.setEnabled(false);
+        refreshTablePelanggan();
+    }//GEN-LAST:event_cmdDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +389,21 @@ public class FrmPelanggan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdDelete;
+    private javax.swing.JButton cmdNew;
+    private javax.swing.JButton cmdRefresh;
+    private javax.swing.JButton cmdSave;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablePelanggan;
+    private javax.swing.JTextField txtAlamat;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtNo;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

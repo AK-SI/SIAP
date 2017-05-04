@@ -14,9 +14,15 @@ import Interfaces.*;
  */
 public class Factory {
     private static IKaryawan  karyawanDAO;
+    private static IPelanggan pelangganDAO;
 
     public static IKaryawan getKaryawanDAO() {
         karyawanDAO = new ImKaryawan();
         return karyawanDAO;
+    }
+
+    public static IPelanggan getPelangganDAO() {
+        pelangganDAO = new ImPelanggan();
+        return pelangganDAO;
     }
 }
