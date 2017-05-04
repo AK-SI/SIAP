@@ -23,7 +23,12 @@ public class ImKaryawan implements IKaryawan{
     private boolean status =false;
     private ResultSet rsKaryawan, rsGenID;
     private List<Karyawan> listKaryawan;
-
+    
+    public ImKaryawan(){
+        koneksi = new KoneksiDB();
+        koneksi.getKoneksi();
+    }
+    
     @Override
     public boolean insertKaryawan(Karyawan kr) {
         status = false;
@@ -95,8 +100,7 @@ public class ImKaryawan implements IKaryawan{
             rsGenID = koneksi.getRs();
             try{
                 rsGenID.next();
-                angka = rsGenID.getInt("id");
-                if (angka < 1){angka = 1;}
+                angka = rsGenID.getInt("id")+1;
                 if (angka <= 9 ) {
                     id = "N00000" + (angka); 
                 }

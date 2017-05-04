@@ -47,6 +47,7 @@ public class FrmKaryawan extends javax.swing.JFrame {
         tabelKaryawan.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                forgotSave();
                 baris = tabelKaryawan.getSelectedRow();
                 if (baris >=0) {
                     txtNik.setText(dtmKaryawan.getValueAt(baris, 0).toString());
@@ -61,7 +62,7 @@ public class FrmKaryawan extends javax.swing.JFrame {
     }
 
     private void refreshTableKaryawan(){
-        listKaryawan = karyawanDAO.selectKaryawan("", "");
+        listKaryawan = karyawanDAO.selectKaryawan(txtSearch.getText(), txtSearch.getText());
         dtmKaryawan = (DefaultTableModel) tabelKaryawan.getModel();
         dtmKaryawan.setRowCount(0);
         
@@ -78,6 +79,47 @@ public class FrmKaryawan extends javax.swing.JFrame {
             tabelKaryawan.setRowSelectionInterval(baris, baris);
             
         }
+    }
+    
+    private void saveRecord() {
+        kr = new Karyawan();
+        kr.setNik(txtNik.getText());
+        kr.setNama(txtNama.getText());
+        kr.setTelpon(txtNo.getText());
+        kr.setAlamat(txtAlamat.getText());
+        kr.setJabatan(txtJabatan.getText());
+        
+        if (newRecord) {
+            status = karyawanDAO.insertKaryawan(kr);
+            newRecord =false;
+        }else{
+            status = karyawanDAO.updateKaryawan(kr);
+        }
+        needSave=false;
+        if (!status) {
+            JOptionPane.showMessageDialog(null, "Data Gagal Disimpan", "Info",JOptionPane.INFORMATION_MESSAGE);
+        }
+        refreshTableKaryawan();
+        cmdDelete.setEnabled(true);
+    }
+        
+    private void clearText(){
+        txtNik.setText("");
+        txtNama.setText("");
+        txtNo.setText("");
+        txtAlamat.setText("");
+        txtJabatan.setText("");
+        txtSearch.setText("");
+    }
+    private void forgotSave(){
+        if (needSave) {
+            if (JOptionPane.showConfirmDialog(null, "Data yang di ubah belum disimpan. Simpan sekarang?","Simpan Perubahan"
+                    ,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                saveRecord();
+            }
+        }
+        newRecord =false;
+        needSave =false;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,9 +145,9 @@ public class FrmKaryawan extends javax.swing.JFrame {
         tabelKaryawan = new javax.swing.JTable();
         cmdNew = new javax.swing.JButton();
         cmdSave = new javax.swing.JButton();
-        cmDelete = new javax.swing.JButton();
-        txtCari = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        cmdDelete = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
+        cmdRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Data Karyawan");
@@ -116,9 +158,33 @@ public class FrmKaryawan extends javax.swing.JFrame {
 
         jLabel2.setText("Nama");
 
+        txtNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNamaKeyTyped(evt);
+            }
+        });
+
+        txtAlamat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAlamatKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Alamat");
 
+        txtNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNoKeyTyped(evt);
+            }
+        });
+
         jLabel4.setText("Telpon");
+
+        txtJabatan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtJabatanKeyTyped(evt);
+            }
+        });
 
         jLabel5.setText("Jabatan");
 
@@ -191,6 +257,11 @@ public class FrmKaryawan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelKaryawanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelKaryawan);
 
         cmdNew.setText("New");
@@ -207,9 +278,25 @@ public class FrmKaryawan extends javax.swing.JFrame {
             }
         });
 
-        cmDelete.setText("Delete");
+        cmdDelete.setText("Delete");
+        cmdDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdDeleteActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Search");
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
+            }
+        });
+
+        cmdRefresh.setText("Refresh");
+        cmdRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRefreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,33 +310,33 @@ public class FrmKaryawan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmdSave, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(cmdRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
+                .addContainerGap(88, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmdNew)
                     .addComponent(cmdSave)
-                    .addComponent(cmDelete))
+                    .addComponent(cmdDelete))
                 .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdRefresh))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -259,30 +346,66 @@ public class FrmKaryawan extends javax.swing.JFrame {
 
     private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
         // TODO add your handling code here:
-        kr = new Karyawan();
-        kr.setNik(txtNik.getText());
-        kr.setNama(txtNama.getText());
-        kr.setTelpon(txtNo.getText());
-        kr.setAlamat(txtAlamat.getText());
-        kr.setJabatan(txtJabatan.getText());
-        
-        if (newRecord) {
-            status = karyawanDAO.insertKaryawan(kr);
-            newRecord =false;
-        }else{
-            status = karyawanDAO.updateKaryawan(kr);
-        }
-        needSave=false;
-        if (!status) {
-            JOptionPane.showMessageDialog(null, "Data Gagal Disimpan", "Info",JOptionPane.INFORMATION_MESSAGE);
-        }
-        refreshTableKaryawan();
+        saveRecord();
     }//GEN-LAST:event_cmdSaveActionPerformed
 
     private void cmdNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdNewActionPerformed
+        forgotSave();
         newRecord = true;
         needSave = true;
+        clearText();
+        txtNik.setText(karyawanDAO.generateIDKaryawan());
+        cmdDelete.setEnabled(false);
     }//GEN-LAST:event_cmdNewActionPerformed
+
+    private void txtNamaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaKeyTyped
+        // TODO add your handling code here:
+        needSave=true;
+    }//GEN-LAST:event_txtNamaKeyTyped
+
+    private void txtNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNoKeyTyped
+        // TODO add your handling code here:
+        needSave=true;
+    }//GEN-LAST:event_txtNoKeyTyped
+
+    private void txtAlamatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlamatKeyTyped
+        // TODO add your handling code here:
+        needSave=true;
+    }//GEN-LAST:event_txtAlamatKeyTyped
+
+    private void txtJabatanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJabatanKeyTyped
+        // TODO add your handling code here:
+        needSave=true;
+    }//GEN-LAST:event_txtJabatanKeyTyped
+
+    private void cmdRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRefreshActionPerformed
+        // TODO add your handling code here:
+        txtSearch.setText("");
+        refreshTableKaryawan();
+    }//GEN-LAST:event_cmdRefreshActionPerformed
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        // TODO add your handling code here:
+        refreshTableKaryawan();
+        
+    }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void cmdDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDeleteActionPerformed
+        // TODO add your handling code here:
+        forgotSave();
+        if(JOptionPane.showConfirmDialog(null, txtNama.getText() +" akan dihapus dari daftar karyawan. Lanjut?","Hapus Karyawan", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            status = karyawanDAO.deleteKaryawan(txtNik.getText());
+            if (!status) {
+                JOptionPane.showMessageDialog(null, "Mungkin karyawan telah tercatat dalam transaksi.","Tidak Terhapus",JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        refreshTableKaryawan();
+    }//GEN-LAST:event_cmdDeleteActionPerformed
+
+    private void tabelKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKaryawanMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tabelKaryawanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -320,10 +443,10 @@ public class FrmKaryawan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cmDelete;
+    private javax.swing.JButton cmdDelete;
     private javax.swing.JButton cmdNew;
+    private javax.swing.JButton cmdRefresh;
     private javax.swing.JButton cmdSave;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -333,10 +456,12 @@ public class FrmKaryawan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelKaryawan;
     private javax.swing.JTextField txtAlamat;
-    private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtJabatan;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtNik;
     private javax.swing.JTextField txtNo;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+
 }
