@@ -6,13 +6,18 @@
 package Koneksi;
 
 import com.mysql.jdbc.Connection;
-import java.sql.*;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author su
  */
-public class Koneksi {
+public class KoneksiDB {
     private Connection koneksi;
     private ResultSet rs;
     private PreparedStatement ps;
@@ -40,9 +45,10 @@ public class Koneksi {
     public ResultSet getRs(){
         return rs;
     }
+    
     public boolean eksekusiQuery(String query, boolean status){
         try {
-            ps = koneksi.prepareStatement(query);
+            ps = (PreparedStatement) koneksi.prepareStatement(query);
             if (status) {
                 rs = ps.executeQuery();
             }else{

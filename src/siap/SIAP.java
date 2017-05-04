@@ -1,6 +1,6 @@
 package siap;
 
-import Koneksi.Koneksi;
+import Koneksi.KoneksiDB;
 import Views.FrmMenu;
 
 /*
@@ -19,7 +19,7 @@ public class SIAP {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Koneksi conn = new Koneksi();
+        KoneksiDB conn = new KoneksiDB();
         if (conn.getKoneksi() != null) {
             FrmMenu menu = new FrmMenu();
             menu.setVisible(true);

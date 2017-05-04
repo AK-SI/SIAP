@@ -5,10 +5,23 @@
  */
 package Interfaces;
 
+import Entity.Karyawan;
+import java.util.List;
+
 /**
  *
  * @author su
  */
 public interface IKaryawan {
-    
+    boolean insertKaryawan(Karyawan kr);
+
+    /**
+     *
+     * @param kr
+     * @return
+     */
+    boolean updateKaryawan(Karyawan kr);
+    boolean deleteKaryawan(String nik);
+    List selectKaryawan(String kode, String nama);
+    String generateIDKaryawan();
 }

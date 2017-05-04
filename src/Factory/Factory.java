@@ -5,10 +5,18 @@
  */
 package Factory;
 
+import Implements.*;
+import Interfaces.*;
+
 /**
  *
  * @author su
  */
 public class Factory {
-    
+    private static IKaryawan  karyawanDAO;
+
+    public static IKaryawan getKaryawanDAO() {
+        karyawanDAO = new ImKaryawan();
+        return karyawanDAO;
+    }
 }
