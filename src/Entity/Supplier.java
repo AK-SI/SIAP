@@ -10,5 +10,41 @@ package Entity;
  * @author su
  */
 public class Supplier {
+    private String id_supplier;
+    private String nama;
+    private String telepon;
+    private String alamat;
+
+    public String getId_supplier() {
+        return id_supplier;
+    }
+
+    public void setId_supplier(String id_supplier) {
+        this.id_supplier = id_supplier;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getTelepon() {
+        return telepon;
+    }
+
+    public void setTelepon(String telepon) {
+        this.telepon = telepon;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
     
 }
