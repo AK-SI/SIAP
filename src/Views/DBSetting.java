@@ -15,16 +15,15 @@ import javax.swing.JOptionPane;
  * @author su
  */
 public class DBSetting extends javax.swing.JFrame {
-    
-    Config c = new Config();
-
+    private boolean saveSetting;
+    private static Config c = new Config();
+    private static File file =new File("config.prop");
     /**
      * Creates new form Setting
      */
     public DBSetting() {
         initComponents();
         setLocationRelativeTo(this);
-        File file =new File("config.prop");
         if (file.exists()) {    
             String[] setting;
             setting = c.GetConfig();
@@ -60,6 +59,11 @@ public class DBSetting extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         txtHost.setText("localhost");
 
@@ -167,7 +171,7 @@ public class DBSetting extends javax.swing.JFrame {
 
     private void cmdConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConnectActionPerformed
         // TODO add your handling code here:
-        if (!"".equals(txtDB.getText())) {
+        if (!txtDB.getText().equals("")) {
             c.SetConfig(txtHost.getText(),
                 txtPort.getText(), 
                 txtDB.getText(),
@@ -175,20 +179,30 @@ public class DBSetting extends javax.swing.JFrame {
                 txtPassword.getText());
         
             KoneksiDB conn = new KoneksiDB();
-        
             if (conn.getKoneksi() != null) {
                 FrmMenu menu = new FrmMenu();
                 menu.setVisible(true);
                 this.dispose();
+                saveSetting=true;
             }else{
-                JOptionPane.showMessageDialog(null, "Informasi belum lengkap\n Silakan periksa konfigurasi anda."
-                    , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
-            }   
+                saveSetting=false;
+                JOptionPane.showMessageDialog(null, "Informasi belum lengkap"+
+                        "\nSilakan periksa konfigurasi anda."
+                        , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Informasi belum lengkap\n Silakan periksa konfigurasi anda."
                 , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cmdConnectActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if(!saveSetting){
+            System.err.println("Database belum dikoneksikan : \n\tFile konfigurasi database tidak disimpan.");
+            file.deleteOnExit();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
