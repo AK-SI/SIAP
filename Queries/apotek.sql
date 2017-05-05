@@ -40,7 +40,7 @@ create table supplier(
 create table jenis_obat(
     id_jenis varchar(5) primary key,
     jenis varchar(15) not null,
-    keterangan varchar(100)
+    keterangan text
 )engine=innodb;
 
 create table obat(
@@ -72,4 +72,4 @@ create table det_transaksi(
     foreign key (id_obat) references obat(id_obat)
 )engine=innodb;
 
-select * from supplier
+select * from jenis_obat

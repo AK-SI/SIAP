@@ -66,13 +66,14 @@ public class ImJenisObat implements IJenisObat{
         status = koneksi.eksekusiQuery(query, true);
         if (status) {
             rsJenisObat = koneksi.getRs();
-            listJenisObat = new ArrayList<>();
+            listJenisObat = new ArrayList<JenisObat>();
             try{
                 while(rsJenisObat.next()){
                     JenisObat j = new JenisObat();
                     j.setId_jenis(rsJenisObat.getString("id_jenis"));
                     j.setJenis(rsJenisObat.getString("jenis"));
                     j.setKeterangan(rsJenisObat.getString("keterangan"));
+                    listJenisObat.add(j);
                 }
                 rsJenisObat.close();
                 return listJenisObat;
