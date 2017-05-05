@@ -5,10 +5,17 @@
  */
 package Interfaces;
 
+import Entity.Supplier;
+import java.util.List;
+
 /**
  *
  * @author su
  */
 public interface ISupplier {
-    
+    boolean insertSupplier(Supplier sp);
+    boolean updateSupplier(Supplier sp);
+    boolean deleteSupplier(String id);
+    List selectSupplier(String id, String nama);
+    String generateIDSupplier();
 }

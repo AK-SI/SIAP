@@ -339,7 +339,7 @@ public class FrmPelanggan extends javax.swing.JFrame {
         forgotSave();
         if (JOptionPane.showConfirmDialog(null, txtNama.getText() + 
                 " akan di hapus dari daftar pelanggan. Lanjutkan?",
-                "Hapus" + txtNama.getText(),
+                "Hapus " + txtNama.getText(),
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             status = pelangganDAO.deletePelanggan(txtId.getText());
         }

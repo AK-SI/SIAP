@@ -5,17 +5,123 @@
  */
 package Views;
 
+import Entity.Supplier;
+import Factory.Factory;
+import Interfaces.ISupplier;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author su
  */
 public class FrmSupplier extends javax.swing.JFrame {
+    private int baris;
+    private boolean newRecord, needSave, status;
+    private DefaultTableModel dtmSupplier;
+    private String[] tableHeader;
+    private ISupplier supplierDAO;
+    private List<Supplier> listSupplier;
+    private Supplier sp;
 
     /**
      * Creates new form FrmSupplier
      */
     public FrmSupplier() {
         initComponents();
+        setLocationRelativeTo(this);
+        supplierDAO = Factory.getSupplierDAO();
+        tableHeader = new String[]{
+            "ID",
+            "Nama",
+            "No. Telp",
+            "Alamat"
+        };
+        dtmSupplier = new DefaultTableModel(null,tableHeader);
+        tableSupplier.setModel(dtmSupplier);
+        tableSupplier.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                forgotSave();
+                cmdDelete.setEnabled(true);
+                baris = tableSupplier.getSelectedRow();
+                if (baris>=0) {
+                    txtId.setText(dtmSupplier.getValueAt(baris, 0).toString());
+                    txtNama.setText(dtmSupplier.getValueAt(baris, 1).toString());
+                    txtNo.setText(dtmSupplier.getValueAt(baris, 2).toString());
+                    txtAlamat.setText(dtmSupplier.getValueAt(baris, 3).toString());
+                }
+            }
+        });
+        refreshTableSupplier();
+        cmdDelete.setEnabled(false);
+        cmdSave.setEnabled(false);
+    }
+    
+    private void refreshTableSupplier(){
+       listSupplier = supplierDAO.selectSupplier(txtSearch.getText(),txtSearch.getText());
+       dtmSupplier = (DefaultTableModel) tableSupplier.getModel();
+       dtmSupplier.setRowCount(0);
+        for (Supplier data:listSupplier) {
+            dtmSupplier.addRow(new Object[]{
+                data.getId_supplier(),
+                data.getNama(),
+                data.getTelepon(),
+                data.getAlamat()
+            });
+        }
+        if (tableSupplier.getRowCount()>0) {
+            baris = tableSupplier.getRowCount()-1;
+            tableSupplier.setRowSelectionInterval(baris, baris);
+        }
+    }
+    
+    private void saveRecord(){
+        sp = new Supplier();
+        sp.setId_supplier(txtId.getText());
+        sp.setNama(txtNama.getText());
+        sp.setTelepon(txtNo.getText());
+        sp.setAlamat(txtAlamat.getText());
+        
+        if (newRecord) {
+            status = supplierDAO.insertSupplier(sp);
+            newRecord =false;
+        }else{
+            status = supplierDAO.updateSupplier(sp);
+        }
+        
+        if (!status) {
+            JOptionPane.showMessageDialog(null, "Data tidak tersimpan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        }
+        needSave=false;
+        refreshTableSupplier();
+    }
+    private void clearText(){
+        txtId.setText("");
+        txtNama.setText("");
+        txtNo.setText("");
+        txtAlamat.setText("");
+        txtSearch.setText("");
+    }
+    
+    private void forgotSave(){
+        if (needSave) {
+            if (JOptionPane.showConfirmDialog(null, "Data yang diubah belum disimpan. Simpan sekarang?",
+                    "Simpan perubahan?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
+                saveRecord();
+            }
+        }
+        needSave=false;
+        newRecord=false;
+    }
+    
+    private void recordChanged(){
+        needSave=true;
+        cmdSave.setEnabled(true);
+        cmdDelete.setEnabled(false);
     }
 
     /**
@@ -27,22 +133,279 @@ public class FrmSupplier extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtNama = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtNo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtAlamat = new javax.swing.JTextField();
+        cmdNew = new javax.swing.JButton();
+        cmdSave = new javax.swing.JButton();
+        cmdDelete = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableSupplier = new javax.swing.JTable();
+        txtSearch = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Data Supplier");
+
+        jLabel1.setText("ID Supplier");
+
+        txtId.setEditable(false);
+
+        jLabel2.setText("Nama");
+
+        txtNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamaActionPerformed(evt);
+            }
+        });
+        txtNama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNamaKeyTyped(evt);
+            }
+        });
+
+        jLabel3.setText("No. Telepon");
+
+        txtNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNoActionPerformed(evt);
+            }
+        });
+        txtNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNoKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setText("Alamat");
+
+        txtAlamat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAlamatActionPerformed(evt);
+            }
+        });
+        txtAlamat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAlamatKeyTyped(evt);
+            }
+        });
+
+        cmdNew.setText("New");
+        cmdNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdNewActionPerformed(evt);
+            }
+        });
+
+        cmdSave.setText("Save");
+        cmdSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSaveActionPerformed(evt);
+            }
+        });
+
+        cmdDelete.setText("Delete");
+        cmdDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdDeleteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cmdNew, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdSave, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAlamat)
+                            .addComponent(txtNo)
+                            .addComponent(txtNama)
+                            .addComponent(txtId))
+                        .addGap(9, 9, 9)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdNew)
+                    .addComponent(cmdSave)
+                    .addComponent(cmdDelete))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tableSupplier.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tableSupplier);
+
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
+            }
+        });
+
+        jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(111, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdNewActionPerformed
+        // TODO add your handling code here:
+        forgotSave();
+        clearText();
+        newRecord=true;
+        needSave=true;
+        cmdSave.setEnabled(false);
+        cmdDelete.setEnabled(false);
+        txtId.setText(supplierDAO.generateIDSupplier());
+    }//GEN-LAST:event_cmdNewActionPerformed
+
+    private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
+        // TODO add your handling code here:
+        saveRecord();
+        clearText();
+    }//GEN-LAST:event_cmdSaveActionPerformed
+
+    private void cmdDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDeleteActionPerformed
+        // TODO add your handling code here:
+        forgotSave();
+        if (JOptionPane.showConfirmDialog(null, txtNama.getText() +
+                " akan dihapus dari daftar supplier. Lanjutkan?",
+                "Hapus " + txtNama.getText(),
+                JOptionPane.YES_NO_OPTION
+        )== JOptionPane.YES_OPTION) {
+            status = supplierDAO.deleteSupplier(txtId.getText());
+        }
+        if (!status) {
+            JOptionPane.showMessageDialog(null,
+                    "Supplier pernah bertransaksi disini",
+                    "Tidak dihapus",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        cmdDelete.setEnabled(false);
+        refreshTableSupplier();
+    }//GEN-LAST:event_cmdDeleteActionPerformed
+
+    private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
+
+    }//GEN-LAST:event_txtNamaActionPerformed
+
+    private void txtNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoActionPerformed
+
+    }//GEN-LAST:event_txtNoActionPerformed
+
+    private void txtAlamatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAlamatActionPerformed
+
+    }//GEN-LAST:event_txtAlamatActionPerformed
+
+    private void txtNamaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaKeyTyped
+        // TODO add your handling code here:
+        recordChanged();
+    }//GEN-LAST:event_txtNamaKeyTyped
+
+    private void txtNoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNoKeyTyped
+        // TODO add your handling code here:
+        recordChanged();
+    }//GEN-LAST:event_txtNoKeyTyped
+
+    private void txtAlamatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlamatKeyTyped
+        // TODO add your handling code here:
+        recordChanged();
+    }//GEN-LAST:event_txtAlamatKeyTyped
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        // TODO add your handling code here:
+        refreshTableSupplier();
+    }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        txtSearch.setText("");
+        refreshTableSupplier();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +443,21 @@ public class FrmSupplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdDelete;
+    private javax.swing.JButton cmdNew;
+    private javax.swing.JButton cmdSave;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableSupplier;
+    private javax.swing.JTextField txtAlamat;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtNo;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
