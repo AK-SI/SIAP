@@ -61,8 +61,8 @@ public class ImJenisObat implements IJenisObat{
 
     @Override
     public List selectJenisObat(String kode, String jenis) {
-        query = "select * from jenis_obat where id_pelanggan like'%" + kode +
-                "%' or nama like '%"+ jenis+ "%'";
+        query = "select * from jenis_obat where id_jenis like'%" + kode +
+                "%' or jenis like '%"+ jenis+ "%'";
         status = koneksi.eksekusiQuery(query, true);
         if (status) {
             rsJenisObat = koneksi.getRs();

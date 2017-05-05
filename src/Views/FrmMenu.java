@@ -10,7 +10,13 @@ package Views;
  * @author su
  */
 public class FrmMenu extends javax.swing.JFrame {
-
+    private final FrmPelanggan pelanggan = new FrmPelanggan();
+    private final FrmKaryawan karyawan = new FrmKaryawan();
+    private final FrmSupplier supplier = new FrmSupplier();
+    private final FrmJenisObat jenisObat = new FrmJenisObat();
+    private final FrmObat obat = new FrmObat();
+    
+    
     /**
      * Creates new form FrmMenu
      */
@@ -64,8 +70,18 @@ public class FrmMenu extends javax.swing.JFrame {
         });
 
         iconObat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/obat64.png"))); // NOI18N
+        iconObat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconObatMouseClicked(evt);
+            }
+        });
 
         labelObat.setText("Obat");
+        labelObat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelObatMouseClicked(evt);
+            }
+        });
 
         iconLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/laporan64.png"))); // NOI18N
 
@@ -202,9 +218,19 @@ public class FrmMenu extends javax.swing.JFrame {
         mnMaster.add(jSeparator3);
 
         mnJenis.setText("Jenis Obat");
+        mnJenis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnJenisActionPerformed(evt);
+            }
+        });
         mnMaster.add(mnJenis);
 
         mnObat.setText("Obat");
+        mnObat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnObatActionPerformed(evt);
+            }
+        });
         mnMaster.add(mnObat);
 
         BarMenu.add(mnMaster);
@@ -236,20 +262,21 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void mnPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPelangganActionPerformed
         // TODO add your handling code here:
-        FrmPelanggan pelanggan = new FrmPelanggan();
         pelanggan.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_mnPelangganActionPerformed
 
     private void mnKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKaryawanActionPerformed
         // TODO add your handling code here:
-        FrmKaryawan karyawan = new FrmKaryawan();
         karyawan.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_mnKaryawanActionPerformed
 
     private void mnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSupplierActionPerformed
         // TODO add your handling code here:
-        FrmSupplier supplier = new FrmSupplier();
         supplier.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_mnSupplierActionPerformed
 
     private void iconTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconTransaksiMouseClicked
@@ -259,39 +286,63 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void iconPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPelangganMouseClicked
         // TODO add your handling code here:
-        FrmPelanggan pelanggan = new FrmPelanggan();
         pelanggan.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_iconPelangganMouseClicked
 
     private void iconKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconKaryawanMouseClicked
         // TODO add your handling code here:
-        FrmKaryawan karyawan = new FrmKaryawan();
         karyawan.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_iconKaryawanMouseClicked
 
     private void labelKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelKaryawanMouseClicked
         // TODO add your handling code here:
-        FrmKaryawan karyawan = new FrmKaryawan();
         karyawan.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_labelKaryawanMouseClicked
 
     private void iconSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconSupplierMouseClicked
         // TODO add your handling code here:
-        FrmSupplier supplier = new FrmSupplier();
         supplier.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_iconSupplierMouseClicked
 
     private void labelSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSupplierMouseClicked
         // TODO add your handling code here:
-        FrmSupplier supplier = new FrmSupplier();
         supplier.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_labelSupplierMouseClicked
 
     private void labelPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelPelangganMouseClicked
         // TODO add your handling code here:
-        FrmPelanggan pelanggan = new FrmPelanggan();
         pelanggan.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_labelPelangganMouseClicked
+
+    private void labelObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelObatMouseClicked
+        // TODO add your handling code here:
+        obat.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_labelObatMouseClicked
+
+    private void iconObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconObatMouseClicked
+        // TODO add your handling code here:
+        obat.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_iconObatMouseClicked
+
+    private void mnObatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnObatActionPerformed
+        // TODO add your handling code here:
+        obat.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mnObatActionPerformed
+
+    private void mnJenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnJenisActionPerformed
+        // TODO add your handling code here:
+        jenisObat.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mnJenisActionPerformed
 
     /**
      * @param args the command line arguments

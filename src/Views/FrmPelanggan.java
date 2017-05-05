@@ -156,6 +156,11 @@ public class FrmPelanggan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Data Pelanggan");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("ID Pelanggan");
 
@@ -352,6 +357,12 @@ public class FrmPelanggan extends javax.swing.JFrame {
         cmdDelete.setEnabled(false);
         refreshTablePelanggan();
     }//GEN-LAST:event_cmdDeleteActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        FrmMenu menu = new FrmMenu();
+        menu.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
