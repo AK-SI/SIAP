@@ -167,20 +167,26 @@ public class DBSetting extends javax.swing.JFrame {
 
     private void cmdConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConnectActionPerformed
         // TODO add your handling code here:
-        c.SetConfig(txtHost.getText(),
+        if (!"".equals(txtDB.getText())) {
+            c.SetConfig(txtHost.getText(),
                 txtPort.getText(), 
                 txtDB.getText(),
                 txtUsername.getText(), 
                 txtPassword.getText());
         
-        KoneksiDB conn = new KoneksiDB();
-        if (conn.getKoneksi() != null) {
-            FrmMenu menu = new FrmMenu();
-            menu.setVisible(true);
-            this.dispose();
+            KoneksiDB conn = new KoneksiDB();
+        
+            if (conn.getKoneksi() != null) {
+                FrmMenu menu = new FrmMenu();
+                menu.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Informasi belum lengkap\n Silakan periksa konfigurasi anda."
+                    , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
+            }   
         }else{
             JOptionPane.showMessageDialog(null, "Informasi belum lengkap\n Silakan periksa konfigurasi anda."
-                    , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
+                , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cmdConnectActionPerformed
 
