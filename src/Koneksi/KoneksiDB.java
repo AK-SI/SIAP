@@ -19,18 +19,20 @@ public class KoneksiDB {
     private Connection koneksi;
     private ResultSet rs;
     private PreparedStatement ps;
+    private String[] setting;
+    private static Config con = new Config();
     
     public Connection getKoneksi(){
+        setting = con.GetConfig();
         if (koneksi==null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 try {
-                    String url="jdbc:mysql://bekti:3306/db_apotek";
-                    koneksi = (Connection) DriverManager.getConnection(url,"root","");
+                    String url="jdbc:mysql://"+setting[0]+":"+setting[1]+"/"+setting[2];
+                    koneksi = (Connection) DriverManager.getConnection(url,setting[3],setting[4]);
                     System.out.println("Koneksi Sukses");
                 } catch (SQLException ex) {
                     System.out.println("Koneksi Gagal" + ex);
-                    System.exit(0);
                 }
             } catch (ClassNotFoundException ex) {
                 System.out.println("Class tidak ditemukan"+ex);
