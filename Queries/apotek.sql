@@ -71,6 +71,3 @@ create table det_transaksi(
     foreign key (id_transaksi) references transaksi(id_transaksi),
     foreign key (id_obat) references obat(id_obat),
 )engine=innodb;
-
-delete from supplier where alamat='23'
-select * from supplier
