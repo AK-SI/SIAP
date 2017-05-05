@@ -44,10 +44,11 @@ public class ImSupplier implements ISupplier{
     @Override
     public boolean updateSupplier(Supplier sp) {
         status = false;
-        query = "update karyawan set nama='" + sp.getNama() + 
+        query = "update supplier set nama='" + sp.getNama() + 
                 "', telpon='" + sp.getTelepon() + 
                 "', alamat='" + sp.getAlamat() +
-                "' where id_supplier='" + sp.getId_supplier() + "';";
+                "' where id_supplier='" + 
+                sp.getId_supplier() + "'";
         status = koneksi.eksekusiQuery(query, false);
         return status;
     }
@@ -100,19 +101,19 @@ public class ImSupplier implements ISupplier{
                 rsGenID.next();
                 angka = rsGenID.getInt("id") + 1;
                 if (angka <= 9 ) {
-                    id = "P0000" + (angka); 
+                    id = "S0000" + (angka); 
                 }
                 else if (angka > 9 && angka < 100 ) {
-                    id="P000"+ (angka);
+                    id="S000"+ (angka);
                 }
                 else if (angka > 99 && angka < 1000 ) {
-                    id="P00"+ (angka);
+                    id="S00"+ (angka);
                 }
                 else if (angka > 999 && angka < 10000 ) {
-                    id="P0"+ (angka);
+                    id="S0"+ (angka);
                 }
                 else{
-                    id="P"+(angka);
+                    id="S"+(angka);
                 }
                 
             } catch (SQLException ex) {

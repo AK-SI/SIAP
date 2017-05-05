@@ -16,6 +16,7 @@ public class Factory {
     private static IKaryawan  karyawanDAO;
     private static IPelanggan pelangganDAO;
     private static ISupplier supplierDAO;
+    private static IJenisObat jenisObatDAO;
 
     public static ISupplier getSupplierDAO() {
         supplierDAO = new ImSupplier();
@@ -30,5 +31,10 @@ public class Factory {
     public static IPelanggan getPelangganDAO() {
         pelangganDAO = new ImPelanggan();
         return pelangganDAO;
+    }
+
+    public static IJenisObat getJenisObatDAO() {
+        jenisObatDAO = new ImJenisObat();
+        return jenisObatDAO;
     }
 }
