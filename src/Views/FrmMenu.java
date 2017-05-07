@@ -51,6 +51,7 @@ public class FrmMenu extends javax.swing.JFrame {
         mnJenis = new javax.swing.JMenuItem();
         mnObat = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        dbSetting = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Utama");
@@ -230,7 +231,16 @@ public class FrmMenu extends javax.swing.JFrame {
 
         BarMenu.add(mnMaster);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Setting");
+
+        dbSetting.setText("Database");
+        dbSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dbSettingActionPerformed(evt);
+            }
+        });
+        jMenu2.add(dbSetting);
+
         BarMenu.add(jMenu2);
 
         setJMenuBar(BarMenu);
@@ -352,6 +362,12 @@ public class FrmMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnJenisActionPerformed
 
+    private void dbSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbSettingActionPerformed
+        // TODO add your handling code here:
+        DBSetting setting = new DBSetting();
+        setting.setVisible(true);
+    }//GEN-LAST:event_dbSettingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -389,6 +405,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar BarMenu;
+    private javax.swing.JMenuItem dbSetting;
     private javax.swing.JLabel iconKaryawan;
     private javax.swing.JLabel iconLaporan;
     private javax.swing.JLabel iconObat;

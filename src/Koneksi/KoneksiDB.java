@@ -63,4 +63,16 @@ public class KoneksiDB {
             return false;
         }
     }
+    
+    public boolean buatDatabase(String url, String username, String password, String query){
+        try {
+            koneksi = (Connection) DriverManager.getConnection(url,username,password);
+            ps = (PreparedStatement) koneksi.prepareStatement(query);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.err.println(ex+": Query Gagal");
+            return false;
+        }
+    }
 }
