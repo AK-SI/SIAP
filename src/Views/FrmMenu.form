@@ -120,28 +120,27 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="iconPelanggan" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelPelanggan" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="iconTransaksi" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelTransaksi" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="iconPelanggan" alignment="0" max="32767" attributes="0"/>
+                      <Component id="iconTransaksi" alignment="0" max="32767" attributes="0"/>
+                      <Component id="labelTransaksi" alignment="0" max="32767" attributes="0"/>
+                      <Component id="labelPelanggan" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="124" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="iconSupplier" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelSupplier" min="-2" max="-2" attributes="0"/>
-                      <Component id="iconObat" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Component id="labelObat" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="iconSupplier" max="32767" attributes="0"/>
+                          <Component id="iconObat" max="32767" attributes="0"/>
+                          <Component id="labelSupplier" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="labelObat" alignment="1" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="122" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="labelKaryawan" min="-2" max="-2" attributes="0"/>
-                      <Component id="iconKaryawan" min="-2" max="-2" attributes="0"/>
-                      <Component id="iconLaporan" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelLaporan" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="iconKaryawan" max="32767" attributes="0"/>
+                      <Component id="iconLaporan" max="32767" attributes="0"/>
+                      <Component id="labelLaporan" alignment="0" max="32767" attributes="0"/>
+                      <Component id="labelKaryawan" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
