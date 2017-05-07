@@ -194,7 +194,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ID Jenis"/>
+            <Property name="text" type="java.lang.String" value="Jenis"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtJenis">
@@ -253,11 +253,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdGetJenisActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="cmdGetSupplier">
           <Properties>
             <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdGetSupplierActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="cmdNew">
           <Properties>

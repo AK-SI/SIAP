@@ -8,6 +8,8 @@ package Views;
 import Entity.Obat;
 import Factory.Factory;
 import Interfaces.IObat;
+import Views.Cari.FrmCariJenisObat;
+import Views.Cari.FrmCariSupplier;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -26,6 +28,7 @@ public class FrmObat extends javax.swing.JFrame {
     private IObat obatDAO;
     private List<Obat> listObat;
     private Obat ob;
+    public String id_jenis, jenis, id_supplier, nama_supplier;
     /**
      * Creates new form FrmObat
      */
@@ -94,8 +97,8 @@ public class FrmObat extends javax.swing.JFrame {
         ob = new Obat();
         ob.setId_obat(txtId.getText());
         ob.setNama_obat(txtNama.getText());
-        ob.setId_jenis(txtJenis.getText());
-        ob.setId_supplier(txtSupplier.getText());
+        ob.setId_jenis(id_jenis);
+        ob.setId_supplier(id_supplier);
         ob.setHarga_jual(txtJual.getText());
         ob.setHarga_beli(txtBeli.getText());
         ob.setStok(txtStok.getText());
@@ -124,6 +127,10 @@ public class FrmObat extends javax.swing.JFrame {
         txtJual.setText("");
         txtStok.setText("");
         txtSearch.setText("");
+        id_jenis ="";
+        jenis="";
+        id_supplier="";
+        nama_supplier="";
     }
     
     private void forgotSave(){
@@ -196,7 +203,7 @@ public class FrmObat extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("ID Jenis");
+        jLabel3.setText("Jenis");
 
         txtJenis.setEditable(false);
         txtJenis.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -244,8 +251,18 @@ public class FrmObat extends javax.swing.JFrame {
         });
 
         cmdGetJenis.setText("...");
+        cmdGetJenis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdGetJenisActionPerformed(evt);
+            }
+        });
 
         cmdGetSupplier.setText("...");
+        cmdGetSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdGetSupplierActionPerformed(evt);
+            }
+        });
 
         cmdNew.setText("New");
         cmdNew.addActionListener(new java.awt.event.ActionListener() {
@@ -485,6 +502,24 @@ public class FrmObat extends javax.swing.JFrame {
         clearText();
         refreshTableObat();
     }//GEN-LAST:event_cmdSearchActionPerformed
+
+    private void cmdGetJenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGetJenisActionPerformed
+        // TODO add your handling code here:
+        FrmCariJenisObat cari = new FrmCariJenisObat(null,true);
+        cari.Fobat=this;
+        cari.setVisible(true);
+        cari.setResizable(true);
+        txtJenis.setText(jenis);
+    }//GEN-LAST:event_cmdGetJenisActionPerformed
+
+    private void cmdGetSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGetSupplierActionPerformed
+        // TODO add your handling code here:
+        FrmCariSupplier cari = new FrmCariSupplier(null,true);
+        cari.Fobat=this;
+        cari.setVisible(true);
+        cari.setResizable(true);
+        txtSupplier.setText(nama_supplier);
+    }//GEN-LAST:event_cmdGetSupplierActionPerformed
 
     /**
      * @param args the command line arguments
