@@ -5,6 +5,8 @@
  */
 package Koneksi;
 
+import Views.DBSetting;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,7 +35,8 @@ public class Config {
     }
     public String[] GetConfig(){
         String[] value= null;
-        
+        File file = new File("config.prop");
+        if (file.exists()) {
             try{
                 prop.load(new FileInputStream("config.prop"));
                 
@@ -48,6 +51,11 @@ public class Config {
                 Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-        return value;
+            return value;
+        }else{
+            DBSetting setting = new DBSetting();
+            setting.setVisible(true);
+        }
+        return null;
     }
 }

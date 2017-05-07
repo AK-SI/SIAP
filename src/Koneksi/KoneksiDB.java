@@ -20,10 +20,10 @@ public class KoneksiDB {
     private ResultSet rs;
     private PreparedStatement ps;
     private String[] setting;
-    private static Config con = new Config();
+    private static final Config CON = new Config();
     
     public Connection getKoneksi(){
-        setting = con.GetConfig();
+        setting = CON.GetConfig();
         if (koneksi==null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
@@ -31,7 +31,10 @@ public class KoneksiDB {
                     String url="jdbc:mysql://"+setting[0]+":"+setting[1]+"/"+setting[2];
                     koneksi = (Connection) DriverManager.getConnection(url,setting[3],setting[4]);
                     System.out.println("Koneksi Sukses");
-                } catch (SQLException ex) {
+                }catch(NullPointerException ex){
+                    System.err.println(ex + " : 'File konfigurasi belum dibuat.'");
+                }
+                catch (SQLException ex) {
                     System.out.println("Koneksi Gagal" + ex);
                 }
             } catch (ClassNotFoundException ex) {
@@ -56,7 +59,19 @@ public class KoneksiDB {
             }
             return true;
         } catch (SQLException ex) {
-            System.out.println("Query Gagal"+ex);
+            System.err.println(ex+": Query Gagal");
+            return false;
+        }
+    }
+    
+    public boolean buatDatabase(String url, String username, String password, String query){
+        try {
+            koneksi = (Connection) DriverManager.getConnection(url,username,password);
+            ps = (PreparedStatement) koneksi.prepareStatement(query);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.err.println(ex+": Query Gagal");
             return false;
         }
     }

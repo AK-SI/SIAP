@@ -10,11 +10,6 @@ package Views;
  * @author su
  */
 public class FrmMenu extends javax.swing.JFrame {
-    private final FrmPelanggan pelanggan = new FrmPelanggan();
-    private final FrmKaryawan karyawan = new FrmKaryawan();
-    private final FrmSupplier supplier = new FrmSupplier();
-    private final FrmJenisObat jenisObat = new FrmJenisObat();
-    private final FrmObat obat = new FrmObat();
     
     
     /**
@@ -56,6 +51,7 @@ public class FrmMenu extends javax.swing.JFrame {
         mnJenis = new javax.swing.JMenuItem();
         mnObat = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        dbSetting = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Utama");
@@ -235,7 +231,16 @@ public class FrmMenu extends javax.swing.JFrame {
 
         BarMenu.add(mnMaster);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Setting");
+
+        dbSetting.setText("Database");
+        dbSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dbSettingActionPerformed(evt);
+            }
+        });
+        jMenu2.add(dbSetting);
+
         BarMenu.add(jMenu2);
 
         setJMenuBar(BarMenu);
@@ -262,6 +267,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void mnPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPelangganActionPerformed
         // TODO add your handling code here:
+        FrmPelanggan pelanggan = new FrmPelanggan();
         pelanggan.setVisible(true);
         this.dispose();
         
@@ -269,12 +275,14 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void mnKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKaryawanActionPerformed
         // TODO add your handling code here:
+        FrmKaryawan karyawan = new FrmKaryawan();
         karyawan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnKaryawanActionPerformed
 
     private void mnSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSupplierActionPerformed
         // TODO add your handling code here:
+        FrmSupplier supplier = new FrmSupplier();
         supplier.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnSupplierActionPerformed
@@ -286,63 +294,79 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void iconPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPelangganMouseClicked
         // TODO add your handling code here:
+        FrmPelanggan pelanggan = new FrmPelanggan();
         pelanggan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_iconPelangganMouseClicked
 
     private void iconKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconKaryawanMouseClicked
         // TODO add your handling code here:
+        FrmKaryawan karyawan = new FrmKaryawan();
         karyawan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_iconKaryawanMouseClicked
 
     private void labelKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelKaryawanMouseClicked
         // TODO add your handling code here:
+        FrmKaryawan karyawan = new FrmKaryawan();
         karyawan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_labelKaryawanMouseClicked
 
     private void iconSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconSupplierMouseClicked
         // TODO add your handling code here:
+        FrmSupplier supplier = new FrmSupplier();
         supplier.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_iconSupplierMouseClicked
 
     private void labelSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSupplierMouseClicked
         // TODO add your handling code here:
+        FrmSupplier supplier = new FrmSupplier();
         supplier.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_labelSupplierMouseClicked
 
     private void labelPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelPelangganMouseClicked
         // TODO add your handling code here:
+        FrmPelanggan pelanggan = new FrmPelanggan();
         pelanggan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_labelPelangganMouseClicked
 
     private void labelObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelObatMouseClicked
         // TODO add your handling code here:
+        FrmObat obat = new FrmObat();
         obat.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_labelObatMouseClicked
 
     private void iconObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconObatMouseClicked
         // TODO add your handling code here:
+        FrmObat obat = new FrmObat();
         obat.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_iconObatMouseClicked
 
     private void mnObatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnObatActionPerformed
         // TODO add your handling code here:
+        FrmObat obat = new FrmObat();
         obat.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnObatActionPerformed
 
     private void mnJenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnJenisActionPerformed
         // TODO add your handling code here:
+        FrmJenisObat jenisObat = new FrmJenisObat();
         jenisObat.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_mnJenisActionPerformed
+
+    private void dbSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbSettingActionPerformed
+        // TODO add your handling code here:
+        DBSetting setting = new DBSetting();
+        setting.setVisible(true);
+    }//GEN-LAST:event_dbSettingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,6 +405,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar BarMenu;
+    private javax.swing.JMenuItem dbSetting;
     private javax.swing.JLabel iconKaryawan;
     private javax.swing.JLabel iconLaporan;
     private javax.swing.JLabel iconObat;

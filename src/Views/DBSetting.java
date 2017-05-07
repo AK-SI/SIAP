@@ -8,6 +8,12 @@ package Views;
 import Koneksi.Config;
 import Koneksi.KoneksiDB;
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,16 +21,16 @@ import javax.swing.JOptionPane;
  * @author su
  */
 public class DBSetting extends javax.swing.JFrame {
-    
-    Config c = new Config();
-
+    private boolean saveSetting = true;
+    private static Config c = new Config();
+    private static File file =new File("config.prop");
+    KoneksiDB conn = new KoneksiDB();
     /**
      * Creates new form Setting
      */
     public DBSetting() {
         initComponents();
         setLocationRelativeTo(this);
-        File file =new File("config.prop");
         if (file.exists()) {    
             String[] setting;
             setting = c.GetConfig();
@@ -60,6 +66,11 @@ public class DBSetting extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         txtHost.setText("localhost");
 
@@ -167,22 +178,54 @@ public class DBSetting extends javax.swing.JFrame {
 
     private void cmdConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConnectActionPerformed
         // TODO add your handling code here:
-        c.SetConfig(txtHost.getText(),
+        if (!txtDB.getText().equals("")) {
+            c.SetConfig(txtHost.getText(),
                 txtPort.getText(), 
                 txtDB.getText(),
                 txtUsername.getText(), 
                 txtPassword.getText());
         
-        KoneksiDB conn = new KoneksiDB();
-        if (conn.getKoneksi() != null) {
-            FrmMenu menu = new FrmMenu();
-            menu.setVisible(true);
-            this.dispose();
+            if (conn.getKoneksi() != null) {
+                FrmMenu menu = new FrmMenu();
+                menu.setVisible(true);
+                this.dispose();
+                saveSetting=true;
+            }else{
+                if(JOptionPane.showConfirmDialog(null, "Informasi belum lengkap! Silakan periksa konfigurasi anda. "+
+                        "\nAtau pilih \"Ya\" untuk membuat Database " + txtDB.getText()
+                        , "Koneksi Gagal!!!", 
+                        JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
+                    buatDatabase();
+                    saveSetting =true;
+                }else{
+                    saveSetting=false;
+                }
+            }
         }else{
             JOptionPane.showMessageDialog(null, "Informasi belum lengkap\n Silakan periksa konfigurasi anda."
-                    , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
+                , "Koneksi Gagal", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_cmdConnectActionPerformed
+    private void buatDatabase(){
+        String query="";
+        query = "create database " + txtDB.getText() + ";";
+        String url = "jdbc:mysql://"+txtHost.getText()+":"+txtPort.getText();
+        conn.buatDatabase(url, txtUsername.getText(), txtPassword.getText(), query);
+        try {
+            query = new String(Files.readAllBytes(Paths.get("queries/apotek.sql")),StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            Logger.getLogger(DBSetting.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        url += "/"+txtDB.getText();
+        conn.buatDatabase(url, txtUsername.getText(), txtPassword.getText(), query);
+    }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if(!saveSetting){
+            System.err.println("Database belum dikoneksikan : \n\tFile konfigurasi database tidak disimpan.");
+            file.deleteOnExit();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

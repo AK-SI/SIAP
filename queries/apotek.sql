@@ -1,13 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  su
- * Created: May 4, 2017
- */
-
 create table pelanggan(
     id_pelanggan varchar(8) primary key,
     nama varchar(15) not null,
@@ -40,7 +30,7 @@ create table supplier(
 create table jenis_obat(
     id_jenis varchar(5) primary key,
     jenis varchar(15) not null,
-    keterangan varchar(100)
+    keterangan text
 )engine=innodb;
 
 create table obat(
@@ -71,5 +61,3 @@ create table det_transaksi(
     foreign key (id_transaksi) references transaksi(id_transaksi),
     foreign key (id_obat) references obat(id_obat)
 )engine=innodb;
-
-select * from supplier
