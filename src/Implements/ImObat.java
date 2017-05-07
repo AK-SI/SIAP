@@ -37,6 +37,7 @@ public class ImObat implements IObat{
                 obat.getId_obat() + "','" +
                 obat.getNama_obat() + "','" +
                 obat.getId_jenis() + "','" +
+                obat.getId_supplier() + "','" +
                 obat.getHarga_beli() + "','" +
                 obat.getHarga_jual() + "','" +
                 obat.getStok() + "')";
