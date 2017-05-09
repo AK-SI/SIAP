@@ -23,6 +23,11 @@ public class ImLogin implements ILogin{
     private boolean status;
     private ResultSet rsLogin;
     private List<Login> listLogin;
+    
+    public ImLogin(){
+        koneksi = new KoneksiDB();
+        koneksi.getKoneksi();
+    }
 
     @Override
     public boolean insertLogin(Login login) {
@@ -40,7 +45,7 @@ public class ImLogin implements ILogin{
         status = false;
         query = "update login_karyawan set password='" + login.getPassword() +
                 "', akses='" + login.getAkses() +
-                "' where username='" + 
+                "' where nik='" + 
                 login.getUsername() + "'";
         status =  koneksi.eksekusiQuery(query, false);
         return status;
@@ -49,7 +54,7 @@ public class ImLogin implements ILogin{
     @Override
     public boolean deleteLogin(String username, String password) {
         status = false;
-        query= "delete from login_karyawan where username='" +
+        query= "delete from login_karyawan where nik='" +
                 username + "' and password='"+password+"'";
         status = koneksi.eksekusiQuery(query, false);
         return status;
@@ -57,8 +62,8 @@ public class ImLogin implements ILogin{
 
     @Override
     public List selectLogin(String username, String password) {
-        query="select * from login_karyawan where username='" +
-                username + "' and password'%" + password + "'";
+        query="select * from login_karyawan where nik='" +
+                username + "' and password='" + password + "'";
         status =koneksi.eksekusiQuery(query, true);
         if (status) {
             rsLogin = koneksi.getRs();
@@ -66,7 +71,7 @@ public class ImLogin implements ILogin{
             try{
                 while(rsLogin.next()){
                     Login l = new Login();
-                    l.setUsername(rsLogin.getString("username"));
+                    l.setUsername(rsLogin.getString("nik"));
                     l.setUsername(rsLogin.getString("password"));
                     l.setUsername(rsLogin.getString("akses"));
                     listLogin.add(l);
