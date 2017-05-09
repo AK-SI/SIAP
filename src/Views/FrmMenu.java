@@ -5,13 +5,15 @@
  */
 package Views;
 
+import Entity.Login;
+import java.util.List;
+
 /**
  *
  * @author su
  */
 public class FrmMenu extends javax.swing.JFrame {
-    
-    
+    public List<Login> login = null;
     /**
      * Creates new form FrmMenu
      */

@@ -18,6 +18,12 @@ public class Factory {
     private static ISupplier supplierDAO;
     private static IJenisObat jenisObatDAO;
     private static IObat ObatDAO;
+    private static ILogin loginDAO;
+
+    public static ILogin getLoginDAO() {
+        loginDAO=new ImLogin();
+        return loginDAO;
+    }
 
     public static IObat getObatDAO() {
         ObatDAO=new ImObat();

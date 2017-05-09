@@ -15,6 +15,6 @@ import java.util.List;
 public interface ILogin {
     boolean insertLogin(Login login);
     boolean updateLogin(Login login);
-    boolean deleteLogin(String id);
-    List selectLogin(String id, String nama);
+    boolean deleteLogin(String username, String password);
+    List selectLogin(String username, String password);
 }
