@@ -62,8 +62,8 @@ public class ImLogin implements ILogin{
 
     @Override
     public List selectLogin(String username, String password) {
-        query="select * from login_karyawan where nik like '%" +
-                username + "%' and password like '%" + password + "%'";
+        query="select * from login_karyawan where nik='" +
+                username + "' and password='" + password + "'";
         status =koneksi.eksekusiQuery(query, true);
         if (status) {
             rsLogin = koneksi.getRs();
