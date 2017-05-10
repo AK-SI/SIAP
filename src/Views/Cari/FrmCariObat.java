@@ -5,20 +5,68 @@
  */
 package Views.Cari;
 
+import Entity.Obat;
+import Factory.Factory;
+import Interfaces.IObat;
+import Views.FrmTransaksi;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author su
  */
 public class FrmCariObat extends javax.swing.JDialog {
-
+    private DefaultTableModel dtmObat;
+    private String[] tableHeader;
+    private IObat ObatDAO;
+    private List<Obat> listObat;
+    private Obat jo;
+    private int baris;
+    public FrmTransaksi Ftr =null;
     /**
      * Creates new form FrmCariObat
      */
     public FrmCariObat(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(this);
+        ObatDAO = Factory.getObatDAO();
+        tableHeader = new String[]{
+            "ID",
+            "Nama Obat",
+            "ID Jenis",
+            "ID Supplier",
+            "Harga Jual",
+            "Harga Beli",
+            "Stok"
+        };
+        dtmObat = new DefaultTableModel(null, tableHeader);
+        tableObat.setModel(dtmObat);
+        refreshIsiTable();
     }
-
+    private void refreshIsiTable(){
+        listObat= ObatDAO.selectObat(txtSearch.getText(),txtSearch.getText());
+        dtmObat = (DefaultTableModel) tableObat.getModel();
+        dtmObat.setRowCount(0);
+        
+       for (Obat data:listObat){
+           dtmObat.addRow(new Object[]{
+               data.getId_obat(),
+               data.getNama_obat(),
+               data.getId_jenis(),
+               data.getId_supplier(),
+               data.getHarga_jual(),
+               data.getHarga_beli(),
+               data.getStok()
+           });
+       }
+        if (tableObat.getRowCount()>0) {
+            baris = tableObat.getRowCount()-1;
+            tableObat.setRowSelectionInterval(baris, baris);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,6 +82,12 @@ public class FrmCariObat extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
+
         tableObat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -45,6 +99,11 @@ public class FrmCariObat extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableObat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableObatMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableObat);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -72,6 +131,28 @@ public class FrmCariObat extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+        refreshIsiTable();
+        txtSearch.setText("");
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void tableObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableObatMouseClicked
+        // TODO add your handling code here:
+        int baris;
+        baris = tableObat.getSelectedRow();
+        int jumlah = Integer.parseInt(JOptionPane.showInputDialog("Masukkan Jumlah Obat:"));
+        int harga = jumlah * Integer.parseInt(tableObat.getValueAt(baris, 4).toString());
+        Ftr.dtmObat.addRow(new Object[]{
+            tableObat.getValueAt(baris, 0).toString(),
+            tableObat.getValueAt(baris, 1).toString(),
+            jumlah,
+            harga
+        });
+        this.dispose();
+        
+    }//GEN-LAST:event_tableObatMouseClicked
 
     /**
      * @param args the command line arguments

@@ -5,18 +5,64 @@
  */
 package Views.Cari;
 
+import Entity.Pelanggan;
+import Factory.Factory;
+import Interfaces.IPelanggan;
+import Views.FrmTransaksi;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author su
  */
 public class FrmCariPelanggan extends javax.swing.JDialog {
-
+    private DefaultTableModel dtmPelanggan;
+    private String[] tableHeader;
+    private IPelanggan PelangganDAO;
+    private List<Pelanggan> listPelanggan;
+    private Pelanggan jo;
+    private int baris;
+    public FrmTransaksi Ftr =null;
     /**
      * Creates new form FrmCariPelanggan
      */
     public FrmCariPelanggan(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(this);
+        PelangganDAO = Factory.getPelangganDAO();
+        tableHeader = new String[]{
+            "ID",
+            "Supplier",
+            "No. Telp",
+            "Alamat"
+        };
+        dtmPelanggan = new DefaultTableModel(null, tableHeader);
+        tablePelanggan.setModel(dtmPelanggan);
+        refreshIsiTable();
+    }
+    private void refreshIsiTable(){
+        listPelanggan = PelangganDAO.selectPelanggan(
+                txtSearch.getText(), 
+                txtSearch.getText());
+        dtmPelanggan = (DefaultTableModel) tablePelanggan.getModel();
+        dtmPelanggan.setRowCount(0);
+        
+        for (Pelanggan data:listPelanggan) {
+            dtmPelanggan.addRow(new Object[]{
+                data.getId_pelanggan(),
+                data.getNama(),
+                data.getTelpon(),
+                data.getAlamat()
+            });
+        }
+        
+        if (tablePelanggan.getRowCount()>0) {
+            baris = tablePelanggan.getRowCount()-1;
+            tablePelanggan.setRowSelectionInterval(baris, baris);
+        }
+        
     }
 
     /**
@@ -30,7 +76,7 @@ public class FrmCariPelanggan extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePelanggan = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -45,7 +91,18 @@ public class FrmCariPelanggan extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePelangganMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablePelanggan);
+
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,14 +112,14 @@ public class FrmCariPelanggan extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(txtSearch))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(35, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -70,6 +127,23 @@ public class FrmCariPelanggan extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+        refreshIsiTable();
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void tablePelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePelangganMouseClicked
+        // TODO add your handling code here:
+        int baris;
+        baris = tablePelanggan.getSelectedRow();
+        Ftr.dataPelanggan = new Pelanggan();
+        Ftr.dataPelanggan.setId_pelanggan(tablePelanggan.getValueAt(baris, 0).toString());
+        Ftr.dataPelanggan.setNama(tablePelanggan.getValueAt(baris, 1).toString());
+        Ftr.dataPelanggan.setTelpon(tablePelanggan.getValueAt(baris, 2).toString());
+        Ftr.dataPelanggan.setAlamat(tablePelanggan.getValueAt(baris, 3).toString());
+        this.dispose();
+    }//GEN-LAST:event_tablePelangganMouseClicked
 
     /**
      * @param args the command line arguments
@@ -115,7 +189,7 @@ public class FrmCariPelanggan extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tablePelanggan;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

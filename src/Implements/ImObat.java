@@ -53,9 +53,9 @@ public class ImObat implements IObat{
                 "', id_supplier='" + obat.getId_supplier() +
                 "', harga_beli='" + obat.getHarga_beli() +
                 "', harga_jual='" + obat.getHarga_jual() +
-                "', stok='" + obat.getId_supplier() + 
+                "', stok='" + obat.getStok()+ 
                 "' where id_obat='" + 
-                obat.getId_obat() + "'";
+                obat.getId_obat() + "';";
         status =  koneksi.eksekusiQuery(query, false);
         return status;
     }

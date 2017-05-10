@@ -58,6 +58,8 @@ public class FrmObat extends javax.swing.JFrame {
                     txtNama.setText(dtmObat.getValueAt(baris, 1).toString());
                     txtJenis.setText(dtmObat.getValueAt(baris, 2).toString());
                     txtSupplier.setText(dtmObat.getValueAt(baris, 3).toString());
+                    id_jenis=dtmObat.getValueAt(baris, 2).toString();
+                    id_supplier=dtmObat.getValueAt(baris, 3).toString();
                     txtJual.setText(dtmObat.getValueAt(baris, 4).toString());
                     txtBeli.setText(dtmObat.getValueAt(baris, 5).toString());
                     txtStok.setText(dtmObat.getValueAt(baris, 6).toString());
@@ -71,7 +73,7 @@ public class FrmObat extends javax.swing.JFrame {
         cmdSave.setEnabled(false);
     }
 
-        private void refreshTableObat(){
+    private void refreshTableObat(){
         listObat= obatDAO.selectObat(txtSearch.getText(),txtSearch.getText());
         dtmObat = (DefaultTableModel) tableObat.getModel();
         dtmObat.setRowCount(0);
@@ -469,7 +471,6 @@ public class FrmObat extends javax.swing.JFrame {
     private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
         // TODO add your handling code here:
         saveRecord();
-        clearText();
     }//GEN-LAST:event_cmdSaveActionPerformed
 
     private void cmdDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDeleteActionPerformed
