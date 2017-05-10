@@ -34,8 +34,8 @@ public class ImLogin implements ILogin{
         status = false;
         query="insert into login_karyawan values('"+
                 login.getUsername() + "','"+
-                login.getPassword()+ "','"+
-                login.getAkses()+ "')";
+                login.getAkses()+ "','"+
+                login.getPassword()+ "')";
         status = koneksi.eksekusiQuery(query, false);
         return status;
     }
@@ -62,8 +62,8 @@ public class ImLogin implements ILogin{
 
     @Override
     public List selectLogin(String username, String password) {
-        query="select * from login_karyawan where nik='" +
-                username + "' and password='" + password + "'";
+        query="select * from login_karyawan where nik like '%" +
+                username + "%' and password like '%" + password + "%'";
         status =koneksi.eksekusiQuery(query, true);
         if (status) {
             rsLogin = koneksi.getRs();
@@ -72,8 +72,8 @@ public class ImLogin implements ILogin{
                 while(rsLogin.next()){
                     Login l = new Login();
                     l.setUsername(rsLogin.getString("nik"));
-                    l.setUsername(rsLogin.getString("password"));
-                    l.setUsername(rsLogin.getString("akses"));
+                    l.setPassword(rsLogin.getString("password"));
+                    l.setAkses(rsLogin.getString("akses"));
                     listLogin.add(l);
                 }
                 rsLogin.close();

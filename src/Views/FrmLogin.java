@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class FrmLogin extends javax.swing.JFrame {
     private ILogin loginDAO;
     private List<Login> listLogin;
+    public String id_karyawan, namakaryawan;
 
     /**
      * Creates new form FrmLogin

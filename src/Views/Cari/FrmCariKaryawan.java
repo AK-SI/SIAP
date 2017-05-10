@@ -5,20 +5,69 @@
  */
 package Views.Cari;
 
+import Entity.Karyawan;
+import Factory.Factory;
+import Interfaces.IKaryawan;
+import Views.FrmCreateLogin;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author su
  */
 public class FrmCariKaryawan extends javax.swing.JDialog {
-
+    private DefaultTableModel dtmKaryawan;
+    private String[] tableHeader;
+    private IKaryawan KaryawanDAO;
+    private List<Karyawan> listKaryawan;
+    private Karyawan jo;
+    private int baris;
+    public FrmCreateLogin FCL =null;
     /**
      * Creates new form FrmCariKaryawan
      */
     public FrmCariKaryawan(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(this);
+        KaryawanDAO = Factory.getKaryawanDAO();
+        tableHeader = new String[]{
+            "NIK",
+            "Nama",
+            "Telpon",
+            "Alamat",
+            "Jabatan"
+        };
+        dtmKaryawan = new DefaultTableModel(null, tableHeader);
+        tableKaryawan.setModel(dtmKaryawan);
+        refreshIsiTable();
     }
 
+    private void refreshIsiTable(){
+        listKaryawan = KaryawanDAO.selectKaryawan(
+                txtSearch.getText(), 
+                txtSearch.getText());
+        dtmKaryawan = (DefaultTableModel) tableKaryawan.getModel();
+        dtmKaryawan.setRowCount(0);
+        
+        for (Karyawan data:listKaryawan) {
+            dtmKaryawan.addRow(new Object[]{
+                data.getNik(),
+                data.getNama(),
+                data.getTelpon(),
+                data.getAlamat(),
+                data.getJabatan()
+            });
+        }
+        
+        if (tableKaryawan.getRowCount()>0) {
+            baris = tableKaryawan.getRowCount()-1;
+            tableKaryawan.setRowSelectionInterval(baris, baris);
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,7 +94,18 @@ public class FrmCariKaryawan extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableKaryawanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableKaryawan);
+
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,6 +130,20 @@ public class FrmCariKaryawan extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKaryawanMouseClicked
+        // TODO add your handling code here:
+        int baris;
+        baris = tableKaryawan.getSelectedRow();
+        FCL.nik=tableKaryawan.getValueAt(baris,0).toString();
+        FCL.nama=tableKaryawan.getValueAt(baris,1).toString();
+        this.dispose();
+    }//GEN-LAST:event_tableKaryawanMouseClicked
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+        refreshIsiTable();
+    }//GEN-LAST:event_txtSearchActionPerformed
 
     /**
      * @param args the command line arguments
