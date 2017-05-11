@@ -6,7 +6,12 @@
 package Views;
 
 import Entity.Login;
+import Koneksi.KoneksiDB;
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -66,6 +71,8 @@ public class FrmMenu extends javax.swing.JFrame {
         dbSetting = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         mnAkun = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mnLapPelanggan = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Utama");
@@ -291,6 +298,18 @@ public class FrmMenu extends javax.swing.JFrame {
 
         BarMenu.add(jMenu2);
 
+        jMenu1.setText("Laporan");
+
+        mnLapPelanggan.setText("Pelanggan");
+        mnLapPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnLapPelangganActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnLapPelanggan);
+
+        BarMenu.add(jMenu1);
+
         setJMenuBar(BarMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -434,6 +453,28 @@ public class FrmMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mnLoginActionPerformed
 
+    private void mnLapPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLapPelangganActionPerformed
+        // TODO add your handling code here:
+//        try{
+//            KoneksiDB koneksi = new KoneksiDB();
+//            koneksi.getKoneksi();
+//            try{
+//                Map<String, Object> parameter = new HashMap<String, Object>();
+//                File rpt = new File("src/Reports/Pelanggan.jrxml");
+//                JasperDesign jDesign = JRXmlLoader.load(rpt);
+//                parameter.clear();
+//                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+//                JasperPrint jPrint = JasperFillManager.fillReport(jReport,
+//                        parameter,koneksi.getKoneksi());
+//                JasperViewer.viewReport(jPrint,false);
+//            }catch(Exception e){
+//                JOptionPane.showMessageDialog(null, "Laporan Tidak Ditemukan " + e);
+//            }
+//        }catch(Exception e){
+//            JOptionPane.showConfirmDialog(null, e);
+//        }
+    }//GEN-LAST:event_mnLapPelangganActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -478,6 +519,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel iconPelanggan;
     private javax.swing.JLabel iconSupplier;
     private javax.swing.JLabel iconTransaksi;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -496,6 +538,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnAkun;
     private javax.swing.JMenuItem mnJenis;
     private javax.swing.JMenuItem mnKaryawan;
+    private javax.swing.JMenuItem mnLapPelanggan;
     private javax.swing.JMenuItem mnLogin;
     private javax.swing.JMenu mnMaster;
     private javax.swing.JMenuItem mnObat;
