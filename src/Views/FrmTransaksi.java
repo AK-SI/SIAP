@@ -6,9 +6,17 @@
 package Views;
 
 import Entity.Pelanggan;
+import Entity.Transaksi;
+import Factory.Factory;
+import Interfaces.IPelanggan;
+import Interfaces.ITransaksi;
 import Views.Cari.FrmCariObat;
 import Views.Cari.FrmCariPelanggan;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,7 +24,13 @@ import javax.swing.table.DefaultTableModel;
  * @author su
  */
 public class FrmTransaksi extends javax.swing.JFrame {
+    private DefaultTableModel dtmTransaksi;
     private String[] tableHeader;
+    private ITransaksi TransaksiDAO;
+    private IPelanggan PelangganDAO;
+    private List<Transaksi> listTransaksi;
+    private Transaksi Tr;
+    public int totalBayar;
     public Pelanggan dataPelanggan;
     public DefaultTableModel dtmObat;
     /**
@@ -24,7 +38,13 @@ public class FrmTransaksi extends javax.swing.JFrame {
      */
     public FrmTransaksi() {
         initComponents();
+        initTableObat();
+        initTableTransaksi();
         setLocationRelativeTo(this);
+        refreshIsiTable();
+    }
+    
+    private void initTableObat(){
         tableHeader = new String[]{
             "ID",
             "Nama Obat",
@@ -35,7 +55,70 @@ public class FrmTransaksi extends javax.swing.JFrame {
         tableObat.setModel(dtmObat);
         dtmObat= (DefaultTableModel) tableObat.getModel();
     }
-
+    private void initTableTransaksi(){
+        TransaksiDAO = Factory.getTransaksiDAO();
+        tableHeader = new String[]{
+            "ID Transaksi",
+            "Nama Pelanggan",
+            "Tanggal",
+            "Total Bayar"
+        };
+        dtmTransaksi = new DefaultTableModel(null, tableHeader);
+        tableTransaksi.setModel(dtmTransaksi);
+    }
+    
+    
+    
+    private void refreshIsiTable(){
+        listTransaksi = TransaksiDAO.selectTransaksi();
+        dtmTransaksi = (DefaultTableModel) tableTransaksi.getModel();
+        dtmTransaksi.setRowCount(0);
+        
+        for (Transaksi data:listTransaksi) {
+            dtmTransaksi.addRow(new Object[]{
+                data.getIdTransaksi(),
+                data.getIdPelanggan(),
+                data.getTanggal(),
+                data.getTotalBayar()
+            });
+        }
+    }
+    
+    private void saveTransaksi(){
+            String idTransaksi = TransaksiDAO.generateIDTransaksi();
+            Tr = new Transaksi();
+            Tr.setIdTransaksi(idTransaksi);
+            Tr.setIdPelanggan(txtId.getText());
+            Tr.setTanggal(tanggal());
+            Tr.setTotalBayar(totalBayar);
+            TransaksiDAO.insertTransaksi(Tr);
+            
+            int baris = tableObat.getRowCount();
+            for (int i = 0; i < baris; i++) {
+                Tr.setIdObat(tableObat.getValueAt(i, 0).toString());
+                Tr.setJumlah(Integer.parseInt(tableObat.getValueAt(i, 2).toString()));
+                Tr.setTotalHarga(Integer.parseInt(tableObat.getValueAt(i, 3).toString()));
+                TransaksiDAO.insertDetailTransaksi(Tr);
+            }
+            refreshIsiTable();
+            clearText();
+    }
+    
+    private String tanggal(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = new Date();
+        return df.format(d);
+    }
+    
+    private void clearText(){
+        dtmObat.setRowCount(0);
+        totalBayar=0;
+        txtId.setText("");
+        txtNama.setText("");
+        txtNo.setText("");
+        txtAlamat.setText("");
+        lblTotal.setText("Rp. 0");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +143,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
         tableObat = new javax.swing.JTable();
         cmdAdd = new javax.swing.JButton();
         cdmDelete = new javax.swing.JButton();
+        cmdCancel = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -72,10 +156,17 @@ public class FrmTransaksi extends javax.swing.JFrame {
         tableTransaksi = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setText("ID Pelanggan");
+
+        txtId.setEditable(false);
 
         jLabel2.setText("Nama");
 
@@ -167,17 +258,26 @@ public class FrmTransaksi extends javax.swing.JFrame {
             }
         });
 
+        cmdCancel.setText("Batal");
+        cmdCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cmdAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cdmDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmdCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +286,8 @@ public class FrmTransaksi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cdmDelete)
-                    .addComponent(cmdAdd))
+                    .addComponent(cmdAdd)
+                    .addComponent(cmdCancel))
                 .addContainerGap())
         );
 
@@ -203,22 +304,27 @@ public class FrmTransaksi extends javax.swing.JFrame {
         jLabel7.setText("Kembalian");
 
         cmdCheckout.setText("Checkout");
+        cmdCheckout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCheckoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(txtBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cmdCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -257,20 +363,22 @@ public class FrmTransaksi extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel5))
-                        .addGap(235, 235, 235))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(235, 235, 235))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,6 +421,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
         cari.Ftr=this;
         cari.setVisible(true);
         cari.setResizable(true);
+        lblTotal.setText("Rp. " + totalBayar);
     }//GEN-LAST:event_cmdAddActionPerformed
 
     private void cdmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cdmDeleteActionPerformed
@@ -320,8 +429,44 @@ public class FrmTransaksi extends javax.swing.JFrame {
         int baris;
         baris = tableObat.getSelectedRow();
         DefaultTableModel table = (DefaultTableModel) tableObat.getModel();
+        totalBayar -= Integer.parseInt(tableObat.getValueAt(baris, 3).toString());
+        lblTotal.setText("Rp. " + totalBayar);
         table.removeRow(baris);
     }//GEN-LAST:event_cdmDeleteActionPerformed
+
+    private void cmdCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancelActionPerformed
+        // TODO add your handling code here:
+        clearText();
+    }//GEN-LAST:event_cmdCancelActionPerformed
+
+    private void cmdCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCheckoutActionPerformed
+        // TODO add your handling code here:
+        if (txtNama.getText().equals("") && txtNo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan Masukkan Data pelanggan.",
+                    "Pelanggan tidak boleh kosong.", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            if (txtId.getText().equals("")) {
+                Pelanggan p = new Pelanggan();
+                PelangganDAO = Factory.getPelangganDAO();
+                txtId.setText(PelangganDAO.generateIDPelanggan());
+                
+                p.setId_pelanggan(txtId.getText());
+                p.setNama(txtNama.getText());
+                p.setTelpon(txtNo.getText());
+                p.setAlamat(txtAlamat.getText());
+                PelangganDAO.insertPelanggan(p);
+                this.saveTransaksi();
+            }else{
+                this.saveTransaksi();
+            }
+        }
+    }//GEN-LAST:event_cmdCheckoutActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        FrmMenu menu = new FrmMenu();
+        menu.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -361,6 +506,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cdmDelete;
     private javax.swing.JButton cmdAdd;
+    private javax.swing.JButton cmdCancel;
     private javax.swing.JButton cmdCheckout;
     private javax.swing.JButton cmdPelanggan;
     private javax.swing.JLabel jLabel1;

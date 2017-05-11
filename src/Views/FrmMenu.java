@@ -13,13 +13,17 @@ import java.util.List;
  * @author su
  */
 public class FrmMenu extends javax.swing.JFrame {
-    public List<Login> login = null;
+    public Login login = null;
     /**
      * Creates new form FrmMenu
      */
     public FrmMenu() {
         initComponents();
         setLocationRelativeTo(this);
+        if (login != null) {
+            lblNamaLogin.setText(login.getUsername());
+            lblAkses.setText(login.getAkses());
+        }
     }
 
     /**
@@ -45,21 +49,33 @@ public class FrmMenu extends javax.swing.JFrame {
         iconKaryawan = new javax.swing.JLabel();
         labelKaryawan = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
+        lblNamaLogin = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        lblAkses = new javax.swing.JLabel();
         BarMenu = new javax.swing.JMenuBar();
         mnMaster = new javax.swing.JMenu();
         mnPelanggan = new javax.swing.JMenuItem();
-        mnKaryawan = new javax.swing.JMenuItem();
         mnSupplier = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        mnJenis = new javax.swing.JMenuItem();
+        mnKaryawan = new javax.swing.JMenuItem();
+        mnLogin = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mnObat = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        mnJenis = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
         dbSetting = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        mnAkun = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Utama");
 
         labelTransaksi.setText("Transaksi");
+        labelTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelTransaksiMouseClicked(evt);
+            }
+        });
 
         iconTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/transaksi64.png"))); // NOI18N
         iconTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -137,30 +153,30 @@ public class FrmMenu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(iconPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(iconSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(iconKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(iconTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(iconObat, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelObat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(iconLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                            .addComponent(labelLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(43, 43, 43))))
+                            .addComponent(iconPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(iconSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(109, 109, 109)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(iconKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(iconLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                        .addComponent(labelLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,6 +214,13 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jToolBar1.setRollover(true);
 
+        lblNamaLogin.setText("jLabel1");
+        jToolBar1.add(lblNamaLogin);
+        jToolBar1.add(jSeparator1);
+
+        lblAkses.setText("jLabel1");
+        jToolBar1.add(lblAkses);
+
         mnMaster.setText("Master");
 
         mnPelanggan.setText("Pelanggan");
@@ -208,14 +231,6 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         mnMaster.add(mnPelanggan);
 
-        mnKaryawan.setText("Karyawan");
-        mnKaryawan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnKaryawanActionPerformed(evt);
-            }
-        });
-        mnMaster.add(mnKaryawan);
-
         mnSupplier.setText("Supplier");
         mnSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,13 +240,22 @@ public class FrmMenu extends javax.swing.JFrame {
         mnMaster.add(mnSupplier);
         mnMaster.add(jSeparator3);
 
-        mnJenis.setText("Jenis Obat");
-        mnJenis.addActionListener(new java.awt.event.ActionListener() {
+        mnKaryawan.setText("Karyawan");
+        mnKaryawan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnJenisActionPerformed(evt);
+                mnKaryawanActionPerformed(evt);
             }
         });
-        mnMaster.add(mnJenis);
+        mnMaster.add(mnKaryawan);
+
+        mnLogin.setText("Tambah Akun");
+        mnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnLoginActionPerformed(evt);
+            }
+        });
+        mnMaster.add(mnLogin);
+        mnMaster.add(jSeparator2);
 
         mnObat.setText("Obat");
         mnObat.addActionListener(new java.awt.event.ActionListener() {
@@ -241,17 +265,29 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         mnMaster.add(mnObat);
 
-        BarMenu.add(mnMaster);
+        mnJenis.setText("Jenis Obat");
+        mnJenis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnJenisActionPerformed(evt);
+            }
+        });
+        mnMaster.add(mnJenis);
+        mnMaster.add(jSeparator4);
 
-        jMenu2.setText("Setting");
-
-        dbSetting.setText("Database");
+        dbSetting.setText("Database Setting");
         dbSetting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dbSettingActionPerformed(evt);
             }
         });
-        jMenu2.add(dbSetting);
+        mnMaster.add(dbSetting);
+
+        BarMenu.add(mnMaster);
+
+        jMenu2.setText("Setting");
+
+        mnAkun.setText("Akun Setting");
+        jMenu2.add(mnAkun);
 
         BarMenu.add(jMenu2);
 
@@ -263,14 +299,14 @@ public class FrmMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -384,6 +420,20 @@ public class FrmMenu extends javax.swing.JFrame {
         setting.setVisible(true);
     }//GEN-LAST:event_dbSettingActionPerformed
 
+    private void labelTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelTransaksiMouseClicked
+        // TODO add your handling code here:
+        FrmTransaksi transaksi = new FrmTransaksi();
+        transaksi.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_labelTransaksiMouseClicked
+
+    private void mnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLoginActionPerformed
+        // TODO add your handling code here:
+        FrmCreateLogin login = new FrmCreateLogin();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_mnLoginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -430,7 +480,10 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel iconTransaksi;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelKaryawan;
     private javax.swing.JLabel labelLaporan;
@@ -438,8 +491,12 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel labelPelanggan;
     private javax.swing.JLabel labelSupplier;
     private javax.swing.JLabel labelTransaksi;
+    private javax.swing.JLabel lblAkses;
+    private javax.swing.JLabel lblNamaLogin;
+    private javax.swing.JMenuItem mnAkun;
     private javax.swing.JMenuItem mnJenis;
     private javax.swing.JMenuItem mnKaryawan;
+    private javax.swing.JMenuItem mnLogin;
     private javax.swing.JMenu mnMaster;
     private javax.swing.JMenuItem mnObat;
     private javax.swing.JMenuItem mnPelanggan;

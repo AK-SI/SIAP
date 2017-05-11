@@ -150,6 +150,7 @@ public class FrmCariObat extends javax.swing.JDialog {
             jumlah,
             harga
         });
+        Ftr.totalBayar +=harga;
         this.dispose();
         
     }//GEN-LAST:event_tableObatMouseClicked

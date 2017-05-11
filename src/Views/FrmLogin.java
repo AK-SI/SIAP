@@ -116,7 +116,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     txtUsername.getText()  +" Tidak sesuai.", "Login Gagal", JOptionPane.ERROR_MESSAGE);
         }else{
             FrmMenu menu = new FrmMenu();
-            menu.login = listLogin;
+            menu.login = listLogin.get(0);
             menu.setVisible(true);
             this.dispose();
         }

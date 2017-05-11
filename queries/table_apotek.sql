@@ -1,13 +1,13 @@
 create table pelanggan(
     id_pelanggan varchar(8) primary key,
-    nama varchar(15) not null,
-    telpon varchar(14) not null,
+    nama varchar(30) not null,
+    telpon varchar(15) not null,
     alamat varchar(60)
 )engine=innodb;
 
 create table karyawan(
     nik varchar(7) primary key,
-    nama varchar(20) not null,
+    nama varchar(30) not null,
     telpon varchar(14) not null,
     alamat varchar(60) not null,
     jabatan varchar(15)
@@ -15,8 +15,8 @@ create table karyawan(
 
 create table login_karyawan(
     nik varchar(7) not null,
-    akses varchar(10) not null,
-    password varchar(15) not null,
+    akses varchar(15) not null,
+    password varchar(18) not null,
     foreign key (nik) references karyawan(nik)
 )engine=innodb;
 
@@ -48,7 +48,7 @@ create table obat(
 create table transaksi(
     id_transaksi varchar(9) primary key,
     id_pelanggan varchar(8),
-    tanggan date not null,
+    tanggal date not null,
     total_bayar int not null,
     foreign key (id_pelanggan) references pelanggan(id_pelanggan)
 )engine=innodb;
