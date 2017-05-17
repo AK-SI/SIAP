@@ -28,7 +28,7 @@ public class Config {
             prop.setProperty("database", db);
             prop.setProperty("username", username);
             prop.setProperty("password", password);
-            prop.store(new FileOutputStream("config.prop"), null);
+            prop.storeToXML(new FileOutputStream("config.prop"), null);
         } catch (IOException ex) {
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,7 +38,7 @@ public class Config {
         File file = new File("config.prop");
         if (file.exists()) {
             try{
-                prop.load(new FileInputStream("config.prop"));
+                prop.loadFromXML(new FileInputStream("config.prop"));
                 
                 value = new String[]{
                     prop.getProperty("host"),

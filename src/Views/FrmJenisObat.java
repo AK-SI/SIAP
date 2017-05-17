@@ -26,6 +26,7 @@ public class FrmJenisObat extends javax.swing.JFrame {
     private IJenisObat jenisObatDAO;
     private List<JenisObat> listJenisObat;
     private JenisObat jo;
+    private FrmObat obat = new FrmObat();
     /**
      * Creates new form FrmJenisObat
      */

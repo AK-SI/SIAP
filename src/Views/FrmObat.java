@@ -8,6 +8,8 @@ package Views;
 import Entity.Obat;
 import Factory.Factory;
 import Interfaces.IObat;
+import Views.Cari.FrmCariJenisObat;
+import Views.Cari.FrmCariSupplier;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -26,6 +28,7 @@ public class FrmObat extends javax.swing.JFrame {
     private IObat obatDAO;
     private List<Obat> listObat;
     private Obat ob;
+    public String id_jenis, jenis, id_supplier, nama_supplier;
     /**
      * Creates new form FrmObat
      */
@@ -55,6 +58,8 @@ public class FrmObat extends javax.swing.JFrame {
                     txtNama.setText(dtmObat.getValueAt(baris, 1).toString());
                     txtJenis.setText(dtmObat.getValueAt(baris, 2).toString());
                     txtSupplier.setText(dtmObat.getValueAt(baris, 3).toString());
+                    id_jenis=dtmObat.getValueAt(baris, 2).toString();
+                    id_supplier=dtmObat.getValueAt(baris, 3).toString();
                     txtJual.setText(dtmObat.getValueAt(baris, 4).toString());
                     txtBeli.setText(dtmObat.getValueAt(baris, 5).toString());
                     txtStok.setText(dtmObat.getValueAt(baris, 6).toString());
@@ -68,7 +73,7 @@ public class FrmObat extends javax.swing.JFrame {
         cmdSave.setEnabled(false);
     }
 
-        private void refreshTableObat(){
+    private void refreshTableObat(){
         listObat= obatDAO.selectObat(txtSearch.getText(),txtSearch.getText());
         dtmObat = (DefaultTableModel) tableObat.getModel();
         dtmObat.setRowCount(0);
@@ -94,8 +99,8 @@ public class FrmObat extends javax.swing.JFrame {
         ob = new Obat();
         ob.setId_obat(txtId.getText());
         ob.setNama_obat(txtNama.getText());
-        ob.setId_jenis(txtJenis.getText());
-        ob.setId_supplier(txtSupplier.getText());
+        ob.setId_jenis(id_jenis);
+        ob.setId_supplier(id_supplier);
         ob.setHarga_jual(txtJual.getText());
         ob.setHarga_beli(txtBeli.getText());
         ob.setStok(txtStok.getText());
@@ -124,6 +129,10 @@ public class FrmObat extends javax.swing.JFrame {
         txtJual.setText("");
         txtStok.setText("");
         txtSearch.setText("");
+        id_jenis ="";
+        jenis="";
+        id_supplier="";
+        nama_supplier="";
     }
     
     private void forgotSave(){
@@ -196,7 +205,7 @@ public class FrmObat extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("ID Jenis");
+        jLabel3.setText("Jenis");
 
         txtJenis.setEditable(false);
         txtJenis.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -244,8 +253,18 @@ public class FrmObat extends javax.swing.JFrame {
         });
 
         cmdGetJenis.setText("...");
+        cmdGetJenis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdGetJenisActionPerformed(evt);
+            }
+        });
 
         cmdGetSupplier.setText("...");
+        cmdGetSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdGetSupplierActionPerformed(evt);
+            }
+        });
 
         cmdNew.setText("New");
         cmdNew.addActionListener(new java.awt.event.ActionListener() {
@@ -277,13 +296,10 @@ public class FrmObat extends javax.swing.JFrame {
 
         tableObat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tableObat);
@@ -455,7 +471,6 @@ public class FrmObat extends javax.swing.JFrame {
     private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
         // TODO add your handling code here:
         saveRecord();
-        clearText();
     }//GEN-LAST:event_cmdSaveActionPerformed
 
     private void cmdDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdDeleteActionPerformed
@@ -482,6 +497,24 @@ public class FrmObat extends javax.swing.JFrame {
         clearText();
         refreshTableObat();
     }//GEN-LAST:event_cmdSearchActionPerformed
+
+    private void cmdGetJenisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGetJenisActionPerformed
+        // TODO add your handling code here:
+        FrmCariJenisObat cari = new FrmCariJenisObat(null,true);
+        cari.Fobat=this;
+        cari.setVisible(true);
+        cari.setResizable(true);
+        txtJenis.setText(jenis);
+    }//GEN-LAST:event_cmdGetJenisActionPerformed
+
+    private void cmdGetSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGetSupplierActionPerformed
+        // TODO add your handling code here:
+        FrmCariSupplier cari = new FrmCariSupplier(null,true);
+        cari.Fobat=this;
+        cari.setVisible(true);
+        cari.setResizable(true);
+        txtSupplier.setText(nama_supplier);
+    }//GEN-LAST:event_cmdGetSupplierActionPerformed
 
     /**
      * @param args the command line arguments

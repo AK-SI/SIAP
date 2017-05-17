@@ -5,19 +5,119 @@
  */
 package Views;
 
+import Entity.Login;
+import Factory.Factory;
+import Interfaces.ILogin;
+import Views.Cari.FrmCariKaryawan;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author su
  */
 public class FrmCreateLogin extends javax.swing.JFrame {
-
+    private int baris;
+    private boolean newRecord, needSave, status;
+    private DefaultTableModel dtmLogin;
+    private String[] tableHeader;
+    private ILogin loginDAO;
+    private List<Login> listLogin;
+    private Login login;
+    public String nik,nama;
     /**
      * Creates new form FrmCreateLogin
      */
     public FrmCreateLogin() {
-        initComponents();
+        initComponents();setLocationRelativeTo(this);
+        loginDAO = Factory.getLoginDAO();
+        tableHeader = new String[] {
+            "Username",
+            "Password",
+            "Akses"
+        };
+        dtmLogin = new DefaultTableModel(null, tableHeader);
+        tabelLogin.setModel(dtmLogin);
+        tabelLogin.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                forgotSave();
+                baris = tabelLogin.getSelectedRow();
+                if (baris >=0) {
+                    txtUsername.setText(dtmLogin.getValueAt(baris, 0).toString());
+                    txtPassword.setText(dtmLogin.getValueAt(baris, 1).toString());
+                    cbAkses.setSelectedItem(dtmLogin.getValueAt(baris, 2).toString());
+                }
+            }
+        });
+        refreshTableLogin();
     }
-
+    private void refreshTableLogin(){
+        listLogin= loginDAO.selectLogin("","");
+        dtmLogin = (DefaultTableModel) tabelLogin.getModel();
+        dtmLogin.setRowCount(0);
+        
+        listLogin.stream().forEach((data) -> {
+            dtmLogin.addRow(new Object[]{
+                data.getUsername(),
+                data.getPassword(),
+                data.getAkses()
+            });
+        });
+        if (tabelLogin.getRowCount()>0) {
+            baris = tabelLogin.getRowCount()-1;
+            tabelLogin.setRowSelectionInterval(baris, baris);
+        }
+    }
+            
+    private void saveRecord(){
+        login = new Login();
+        login.setUsername(txtUsername.getText());
+        login.setPassword(txtPassword.getText());
+        login.setAkses(cbAkses.getSelectedItem().toString());
+        
+        if (newRecord) {
+            status = loginDAO.insertLogin(login);
+            newRecord=false;
+        }else{
+            status = loginDAO.updateLogin(login);
+        }
+        
+        if (!status) {
+            JOptionPane.showMessageDialog(null, "Data tidak tersimpan.", "Informasi",JOptionPane.INFORMATION_MESSAGE);
+        }
+        needSave=false;
+        cmdSave.setEnabled(false);
+        refreshTableLogin();
+    }
+    
+    private void clearText(){
+        txtUsername.setText("");
+        txtNama.setText("");
+        txtPassword.setText("");
+        cbAkses.setSelectedItem("ADMIN");
+    }
+    
+    private void forgotSave(){
+        if (needSave) {
+            if (JOptionPane.showConfirmDialog(null, "Data yang diubah belum disimpan. Simpan sekarang?",
+                    "Simpan perubahan?", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_OPTION) {
+                saveRecord();
+            }
+        }
+        needSave=false;
+        newRecord=false;
+    }
+    
+    private void recordChanged(){
+        needSave=true;
+        cmdSave.setEnabled(true);
+        cmdDelete.setEnabled(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,11 +127,71 @@ public class FrmCreateLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        cmdSave = new javax.swing.JButton();
+        cmdDelete = new javax.swing.JButton();
+        txtNama = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cbAkses = new javax.swing.JComboBox<>();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cmdNew = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelLogin = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/003-browser.png"))); // NOI18N
+        cmdSave.setText("Save");
+        cmdSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSaveActionPerformed(evt);
+            }
+        });
+
+        cmdDelete.setText("Delete");
+
+        jLabel2.setText("Nama");
+
+        jLabel3.setText("Akses");
+
+        cbAkses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Kasir" }));
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setText("Password");
+
+        jLabel5.setText("Username");
+
+        cmdNew.setText("New");
+        cmdNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdNewActionPerformed(evt);
+            }
+        });
+
+        tabelLogin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabelLogin);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -39,19 +199,105 @@ public class FrmCreateLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+<<<<<<< HEAD
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(503, Short.MAX_VALUE))
+=======
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmdNew, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmdSave, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmdDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(63, 63, 63))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel5))
+                                        .addGap(32, 32, 32)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtUsername)
+                                    .addComponent(txtPassword)
+                                    .addComponent(cbAkses, 0, 247, Short.MAX_VALUE)
+                                    .addComponent(txtNama))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> 39f72659d0d29ea3c1830354360aafb75dc6ce0b
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(171, Short.MAX_VALUE))
+=======
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbAkses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmdSave)
+                    .addComponent(cmdDelete)
+                    .addComponent(cmdNew))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+>>>>>>> 39f72659d0d29ea3c1830354360aafb75dc6ce0b
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdNewActionPerformed
+        // TODO add your handling code here:
+        forgotSave();
+        FrmCariKaryawan cari = new FrmCariKaryawan(null,true);
+        cari.FCL=this;
+        cari.setVisible(true);
+        cari.setResizable(true);
+        txtUsername.setText(nik);
+        txtNama.setText(nama);
+        newRecord=true;
+        needSave=true;
+    }//GEN-LAST:event_cmdNewActionPerformed
+
+    private void cmdSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSaveActionPerformed
+        // TODO add your handling code here:
+        saveRecord();
+    }//GEN-LAST:event_cmdSaveActionPerformed
+
+    private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped
+        // TODO add your handling code here:
+        recordChanged();
+    }//GEN-LAST:event_txtPasswordKeyTyped
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        FrmMenu menu = new FrmMenu();
+        menu.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -89,6 +335,18 @@ public class FrmCreateLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> cbAkses;
+    private javax.swing.JButton cmdDelete;
+    private javax.swing.JButton cmdNew;
+    private javax.swing.JButton cmdSave;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelLogin;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
