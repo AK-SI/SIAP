@@ -7,11 +7,22 @@ package Views;
 
 import Entity.Login;
 import Koneksi.KoneksiDB;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -455,24 +466,25 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void mnLapPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLapPelangganActionPerformed
         // TODO add your handling code here:
-//        try{
-//            KoneksiDB koneksi = new KoneksiDB();
-//            koneksi.getKoneksi();
-//            try{
-//                Map<String, Object> parameter = new HashMap<String, Object>();
-//                File rpt = new File("src/Reports/Pelanggan.jrxml");
-//                JasperDesign jDesign = JRXmlLoader.load(rpt);
-//                parameter.clear();
-//                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
-//                JasperPrint jPrint = JasperFillManager.fillReport(jReport,
-//                        parameter,koneksi.getKoneksi());
-//                JasperViewer.viewReport(jPrint,false);
-//            }catch(Exception e){
-//                JOptionPane.showMessageDialog(null, "Laporan Tidak Ditemukan " + e);
-//            }
-//        }catch(Exception e){
-//            JOptionPane.showConfirmDialog(null, e);
-//        }
+        try{
+            KoneksiDB koneksi = new KoneksiDB();
+            koneksi.getKoneksi();
+            try{
+                Map<String, Object> parameter = new HashMap<String, Object>();
+                File rpt = new File("src/Reports/Pelanggan.jrxml");
+                JasperDesign jDesign = null;
+                jDesign = (JasperDesign) JRXmlLoader.load(rpt);
+                parameter.clear();
+                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+                JasperPrint jPrint = JasperFillManager.fillReport(jReport,
+                        parameter,koneksi.getKoneksi());
+                JasperViewer.viewReport(jPrint,false);
+            }catch(JRException e){
+                JOptionPane.showMessageDialog(null, "Laporan Tidak Ditemukan " + e);
+            }
+        }catch(HeadlessException e){
+            JOptionPane.showConfirmDialog(null, e);
+        }
     }//GEN-LAST:event_mnLapPelangganActionPerformed
 
     /**

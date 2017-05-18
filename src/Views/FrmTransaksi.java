@@ -83,9 +83,30 @@ public class FrmTransaksi extends javax.swing.JFrame {
             });
         }
     }
-    
+    private void checkout(){
+        if (txtNama.getText().equals("") && txtNo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Silakan Masukkan Data pelanggan.",
+                    "Pelanggan tidak boleh kosong.", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            if (txtId.getText().equals("")) {
+                Pelanggan p = new Pelanggan();
+                PelangganDAO = Factory.getPelangganDAO();
+                txtId.setText(PelangganDAO.generateIDPelanggan());
+                
+                p.setId_pelanggan(txtId.getText());
+                p.setNama(txtNama.getText());
+                p.setTelpon(txtNo.getText());
+                p.setAlamat(txtAlamat.getText());
+                PelangganDAO.insertPelanggan(p);
+                this.saveTransaksi();
+            }else{
+                this.saveTransaksi();
+            }
+        }
+    }
     private void saveTransaksi(){
-            String idTransaksi = TransaksiDAO.generateIDTransaksi();
+            String idTransaksi = null;
+            idTransaksi = TransaksiDAO.generateIDTransaksi();
             Tr = new Transaksi();
             Tr.setIdTransaksi(idTransaksi);
             Tr.setIdPelanggan(txtId.getText());
@@ -102,6 +123,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
             }
             refreshIsiTable();
             clearText();
+            idTransaksi = "";
     }
     
     private String tanggal(){
@@ -118,6 +140,7 @@ public class FrmTransaksi extends javax.swing.JFrame {
         txtNo.setText("");
         txtAlamat.setText("");
         lblTotal.setText("Rp. 0");
+        txtBayar.setText("0");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -299,11 +322,20 @@ public class FrmTransaksi extends javax.swing.JFrame {
 
         jLabel6.setText("Bayar");
 
+        txtBayar.setText("0");
+        txtBayar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBayarKeyTyped(evt);
+            }
+        });
+
         txtKembali.setEditable(false);
+        txtKembali.setText("0");
 
         jLabel7.setText("Kembalian");
 
         cmdCheckout.setText("Checkout");
+        cmdCheckout.setEnabled(false);
         cmdCheckout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmdCheckoutActionPerformed(evt);
@@ -441,25 +473,14 @@ public class FrmTransaksi extends javax.swing.JFrame {
 
     private void cmdCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCheckoutActionPerformed
         // TODO add your handling code here:
-        if (txtNama.getText().equals("") && txtNo.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Silakan Masukkan Data pelanggan.",
-                    "Pelanggan tidak boleh kosong.", JOptionPane.INFORMATION_MESSAGE);
+        if (Integer.parseInt(txtBayar.getText()) < totalBayar) {
+            JOptionPane.showMessageDialog(null, "Pembayaran tidak mencukupi.");
         }else{
-            if (txtId.getText().equals("")) {
-                Pelanggan p = new Pelanggan();
-                PelangganDAO = Factory.getPelangganDAO();
-                txtId.setText(PelangganDAO.generateIDPelanggan());
-                
-                p.setId_pelanggan(txtId.getText());
-                p.setNama(txtNama.getText());
-                p.setTelpon(txtNo.getText());
-                p.setAlamat(txtAlamat.getText());
-                PelangganDAO.insertPelanggan(p);
-                this.saveTransaksi();
-            }else{
-                this.saveTransaksi();
-            }
+            int kembalian = Integer.parseInt(txtBayar.getText())-totalBayar;
+            txtKembali.setText(String.valueOf(kembalian));
+            checkout();
         }
+        cmdCheckout.setEnabled(false);
     }//GEN-LAST:event_cmdCheckoutActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -467,6 +488,11 @@ public class FrmTransaksi extends javax.swing.JFrame {
         FrmMenu menu = new FrmMenu();
         menu.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void txtBayarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBayarKeyTyped
+        // TODO add your handling code here:
+        cmdCheckout.setEnabled(true);
+    }//GEN-LAST:event_txtBayarKeyTyped
 
     /**
      * @param args the command line arguments
