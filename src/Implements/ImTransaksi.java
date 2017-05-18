@@ -85,13 +85,13 @@ public class ImTransaksi implements ITransaksi{
     public String generateIDTransaksi() {
         String id="";
         int angka =0;
-        query = "select max(right(id_pelanggan, 7)) as id from pelanggan";
+        query = "select max(right(id_transaksi, 7)) as id from transaksi";
         status = koneksi.eksekusiQuery(query, true);
         if (status) {
             rsGenID = koneksi.getRs();
             try{
                 rsGenID.next();
-                angka = rsGenID.getInt("id") +1;
+                angka = rsGenID.getInt("id") + 1;
                 if (angka <= 9 ) {
                     id = "AT000000" + (angka); 
                 }

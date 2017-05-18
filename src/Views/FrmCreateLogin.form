@@ -26,12 +26,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="70" max="-2" attributes="0"/>
-              <EmptySpace pref="503" max="32767" attributes="0"/>
-=======
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -72,7 +66,6 @@
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
->>>>>>> 39f72659d0d29ea3c1830354360aafb75dc6ce0b
           </Group>
       </Group>
     </DimensionLayout>
@@ -95,10 +88,6 @@
                   <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-<<<<<<< HEAD
-              <Component id="jLabel1" min="-2" pref="60" max="-2" attributes="0"/>
-              <EmptySpace pref="171" max="32767" attributes="0"/>
-=======
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="cbAkses" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -111,7 +100,6 @@
               </Group>
               <EmptySpace pref="15" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="228" max="-2" attributes="0"/>
->>>>>>> 39f72659d0d29ea3c1830354360aafb75dc6ce0b
           </Group>
       </Group>
     </DimensionLayout>
