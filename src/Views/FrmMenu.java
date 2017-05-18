@@ -51,6 +51,8 @@ public class FrmMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         labelTransaksi = new javax.swing.JLabel();
         iconTransaksi = new javax.swing.JLabel();
@@ -84,6 +86,13 @@ public class FrmMenu extends javax.swing.JFrame {
         mnAkun = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         mnLapPelanggan = new javax.swing.JMenuItem();
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Utama");
@@ -531,9 +540,11 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JLabel iconPelanggan;
     private javax.swing.JLabel iconSupplier;
     private javax.swing.JLabel iconTransaksi;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
