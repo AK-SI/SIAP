@@ -15,20 +15,20 @@ import javax.swing.JPanel;
  * @author admin
  */
 public class NewClass {
-    private Image image; 
-    public NewClass () {
-    try{
-        image = new ImageIcon(getClass().getResource(file)).getImage();
-    }catch(Exception e){
-       JOptionPane.showMessageDialog(null, “Load Image Gagal”); 
-    }
-    }
-@Override
- protected void paintComponent(Graphics grphcs) {
-        super.paintComponent(grphcs);
-       Graphics2D graphic = (Graphics2D) grphcs.create();
-       graphic.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-      graphic.dispose();
-  }
-}
+//    private Image image; 
+//    public NewClass () {
+//    try{
+//        image = new ImageIcon(getClass().getResource(file)).getImage();
+//    }catch(Exception e){
+//       JOptionPane.showMessageDialog(null, “Load Image Gagal”); 
+//    }
+//    }
+//@Override
+// protected void paintComponent(Graphics grphcs) {
+//        super.paintComponent(grphcs);
+//       Graphics2D graphic = (Graphics2D) grphcs.create();
+//       graphic.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+//      graphic.dispose();
+//  }
+//}
 }
