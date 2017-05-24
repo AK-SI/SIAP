@@ -123,6 +123,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnLaporanTransaksiActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnTransaksiPerbulan">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Transaksi Perbulan"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnTransaksiPerbulanActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator5">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnStok">
@@ -201,7 +209,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -214,106 +222,54 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="iconTransaksi" alignment="0" max="32767" attributes="0"/>
-                              <Component id="labelTransaksi" alignment="0" pref="74" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="125" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="iconObat" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelObat" alignment="1" min="-2" pref="52" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="124" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="iconPelanggan" alignment="0" max="32767" attributes="0"/>
-                              <Component id="labelPelanggan" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="150" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="iconSupplier" max="32767" attributes="0"/>
-                              <Component id="labelSupplier" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="iconTransaksi" min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="iconPelanggan" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="iconKaryawan" max="32767" attributes="0"/>
-                          <Component id="labelKaryawan" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="iconLaporan" pref="68" max="32767" attributes="0"/>
-                          <Component id="labelLaporan" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="iconSupplier" min="-2" max="-2" attributes="0"/>
+                      <Component id="iconObat" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace pref="124" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="iconLaporan" min="-2" pref="68" max="-2" attributes="0"/>
+                      <Component id="iconKaryawan" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="iconTransaksi" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="iconLaporan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelTransaksi" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelLaporan" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="iconObat" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelObat" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="iconObat" min="-2" max="-2" attributes="0"/>
+                      <Component id="iconTransaksi" min="-2" max="-2" attributes="0"/>
+                      <Component id="iconLaporan" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="87" max="32767" attributes="0"/>
+                  <EmptySpace pref="116" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="iconSupplier" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelSupplier" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="iconPelanggan" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelPelanggan" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="iconKaryawan" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="labelKaryawan" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="iconSupplier" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="iconPelanggan" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="iconKaryawan" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="labelTransaksi">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Transaksi"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelTransaksiMouseClicked"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="iconTransaksi">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/transaksi64.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Transaksi"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="iconTransaksiMouseClicked"/>
@@ -324,17 +280,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/obat64.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Obat"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="iconObatMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelObat">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Obat"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelObatMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="iconLaporan">
@@ -342,29 +293,25 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/laporan64.png"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelLaporan">
-          <Properties>
             <Property name="text" type="java.lang.String" value="Laporan"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="iconLaporanMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="iconPelanggan">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/pelanggan64.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Pelanggan"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="iconPelangganMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelPelanggan">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pelanggan"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelPelangganMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="iconSupplier">
@@ -372,17 +319,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/supplier64.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Supplier"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="iconSupplierMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelSupplier">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Supplier"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelSupplierMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="iconKaryawan">
@@ -390,17 +332,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Images/karyawan64.png"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Pelanggan"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="iconKaryawanMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="labelKaryawan">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Karyawan"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelKaryawanMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

@@ -61,12 +61,6 @@ FROM
 	<title>
 		<band height="79" splitType="Stretch"/>
 	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="61" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
 		<band height="70" splitType="Stretch">
 			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
@@ -170,9 +164,6 @@ FROM
 			</componentElement>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>

@@ -39,18 +39,12 @@ public class FrmMenu extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
-        labelTransaksi = new javax.swing.JLabel();
         iconTransaksi = new javax.swing.JLabel();
         iconObat = new javax.swing.JLabel();
-        labelObat = new javax.swing.JLabel();
         iconLaporan = new javax.swing.JLabel();
-        labelLaporan = new javax.swing.JLabel();
         iconPelanggan = new javax.swing.JLabel();
-        labelPelanggan = new javax.swing.JLabel();
         iconSupplier = new javax.swing.JLabel();
-        labelSupplier = new javax.swing.JLabel();
         iconKaryawan = new javax.swing.JLabel();
-        labelKaryawan = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         lblNamaLogin = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -71,6 +65,7 @@ public class FrmMenu extends javax.swing.JFrame {
         mnAkun = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         mnLaporanTransaksi = new javax.swing.JMenuItem();
+        mnTransaksiPerbulan = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         mnStok = new javax.swing.JMenuItem();
         mnObatTerjual = new javax.swing.JMenuItem();
@@ -88,14 +83,10 @@ public class FrmMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Utama");
 
-        labelTransaksi.setText("Transaksi");
-        labelTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelTransaksiMouseClicked(evt);
-            }
-        });
-
         iconTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/transaksi64.png"))); // NOI18N
+        iconTransaksi.setText("Transaksi");
+        iconTransaksi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconTransaksi.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         iconTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconTransaksiMouseClicked(evt);
@@ -103,62 +94,52 @@ public class FrmMenu extends javax.swing.JFrame {
         });
 
         iconObat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/obat64.png"))); // NOI18N
+        iconObat.setText("Obat");
+        iconObat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconObat.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         iconObat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconObatMouseClicked(evt);
             }
         });
 
-        labelObat.setText("Obat");
-        labelObat.addMouseListener(new java.awt.event.MouseAdapter() {
+        iconLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/laporan64.png"))); // NOI18N
+        iconLaporan.setText("Laporan");
+        iconLaporan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconLaporan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconLaporan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelObatMouseClicked(evt);
+                iconLaporanMouseClicked(evt);
             }
         });
 
-        iconLaporan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/laporan64.png"))); // NOI18N
-
-        labelLaporan.setText("Laporan");
-
         iconPelanggan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pelanggan64.png"))); // NOI18N
+        iconPelanggan.setText("Pelanggan");
+        iconPelanggan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconPelanggan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         iconPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconPelangganMouseClicked(evt);
             }
         });
 
-        labelPelanggan.setText("Pelanggan");
-        labelPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelPelangganMouseClicked(evt);
-            }
-        });
-
         iconSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/supplier64.png"))); // NOI18N
+        iconSupplier.setText("Supplier");
+        iconSupplier.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconSupplier.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         iconSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconSupplierMouseClicked(evt);
             }
         });
 
-        labelSupplier.setText("Supplier");
-        labelSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelSupplierMouseClicked(evt);
-            }
-        });
-
         iconKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/karyawan64.png"))); // NOI18N
+        iconKaryawan.setText("Pelanggan");
+        iconKaryawan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconKaryawan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         iconKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconKaryawanMouseClicked(evt);
-            }
-        });
-
-        labelKaryawan.setText("Karyawan");
-        labelKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelKaryawanMouseClicked(evt);
             }
         });
 
@@ -167,67 +148,34 @@ public class FrmMenu extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(iconTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(iconObat, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelObat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(iconPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(iconSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(109, 109, 109)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(iconKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(iconLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                        .addComponent(labelLaporan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(40, 40, 40))
+                    .addComponent(iconTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iconPelanggan))
+                .addGap(99, 99, 99)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(iconSupplier)
+                    .addComponent(iconObat))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(iconLaporan, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iconKaryawan))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(iconTransaksi)
-                            .addComponent(iconLaporan))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelTransaksi)
-                            .addComponent(labelLaporan)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(iconObat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelObat)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                    .addComponent(iconObat)
+                    .addComponent(iconTransaksi)
+                    .addComponent(iconLaporan))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(iconSupplier)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelSupplier))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(iconPelanggan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelPelanggan))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(iconKaryawan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelKaryawan)))
-                .addGap(23, 23, 23))
+                    .addComponent(iconSupplier, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(iconPelanggan, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(iconKaryawan, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
 
         jToolBar1.setRollover(true);
@@ -318,6 +266,14 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(mnLaporanTransaksi);
+
+        mnTransaksiPerbulan.setText("Transaksi Perbulan");
+        mnTransaksiPerbulan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnTransaksiPerbulanActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnTransaksiPerbulan);
         jMenu1.add(jSeparator5);
 
         mnStok.setText("Stok Obat");
@@ -372,7 +328,7 @@ public class FrmMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -416,35 +372,11 @@ public class FrmMenu extends javax.swing.JFrame {
         karyawan.setVisible(true);
     }//GEN-LAST:event_iconKaryawanMouseClicked
 
-    private void labelKaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelKaryawanMouseClicked
-        // TODO add your handling code here:
-        FrmKaryawan karyawan = new FrmKaryawan();
-        karyawan.setVisible(true);
-    }//GEN-LAST:event_labelKaryawanMouseClicked
-
     private void iconSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconSupplierMouseClicked
         // TODO add your handling code here:
         FrmSupplier supplier = new FrmSupplier();
         supplier.setVisible(true);
     }//GEN-LAST:event_iconSupplierMouseClicked
-
-    private void labelSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSupplierMouseClicked
-        // TODO add your handling code here:
-        FrmSupplier supplier = new FrmSupplier();
-        supplier.setVisible(true);
-    }//GEN-LAST:event_labelSupplierMouseClicked
-
-    private void labelPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelPelangganMouseClicked
-        // TODO add your handling code here:
-        FrmPelanggan pelanggan = new FrmPelanggan();
-        pelanggan.setVisible(true);
-    }//GEN-LAST:event_labelPelangganMouseClicked
-
-    private void labelObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelObatMouseClicked
-        // TODO add your handling code here:
-        FrmObat obat = new FrmObat();
-        obat.setVisible(true);
-    }//GEN-LAST:event_labelObatMouseClicked
 
     private void iconObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconObatMouseClicked
         // TODO add your handling code here:
@@ -469,12 +401,6 @@ public class FrmMenu extends javax.swing.JFrame {
         DBSetting setting = new DBSetting();
         setting.setVisible(true);
     }//GEN-LAST:event_dbSettingActionPerformed
-
-    private void labelTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelTransaksiMouseClicked
-        // TODO add your handling code here:
-        FrmTransaksi transaksi = new FrmTransaksi();
-        transaksi.setVisible(true);
-    }//GEN-LAST:event_labelTransaksiMouseClicked
 
     private void mnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLoginActionPerformed
         // TODO add your handling code here:
@@ -511,6 +437,19 @@ public class FrmMenu extends javax.swing.JFrame {
         ViewReport report = new ViewReport();
         report.obatTerjual();
     }//GEN-LAST:event_mnObatTerjualActionPerformed
+
+    private void mnTransaksiPerbulanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnTransaksiPerbulanActionPerformed
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.transaksiPerbulan();
+    }//GEN-LAST:event_mnTransaksiPerbulanActionPerformed
+
+    private void iconLaporanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconLaporanMouseClicked
+        // TODO add your handling code here:
+        FrmLaporan laporan = new FrmLaporan();
+        laporan.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_iconLaporanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -569,12 +508,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JLabel labelKaryawan;
-    private javax.swing.JLabel labelLaporan;
-    private javax.swing.JLabel labelObat;
-    private javax.swing.JLabel labelPelanggan;
-    private javax.swing.JLabel labelSupplier;
-    private javax.swing.JLabel labelTransaksi;
     private javax.swing.JLabel lblAkses;
     private javax.swing.JLabel lblNamaLogin;
     private javax.swing.JMenuItem mnAkun;
@@ -589,5 +522,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnPelanggan;
     private javax.swing.JMenuItem mnStok;
     private javax.swing.JMenuItem mnSupplier;
+    private javax.swing.JMenuItem mnTransaksiPerbulan;
     // End of variables declaration//GEN-END:variables
 }

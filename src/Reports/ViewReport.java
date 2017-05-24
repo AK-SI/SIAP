@@ -133,4 +133,26 @@ public class ViewReport {
             JOptionPane.showConfirmDialog(null, e);
         }
     }
+        
+    public void transaksiPerbulan(){
+        try{
+            KoneksiDB koneksi = new KoneksiDB();
+            koneksi.getKoneksi();
+            try{
+                Map<String, Object> parameter = new HashMap<String, Object>();
+                File rpt = new File("src/Reports/TransaksiPerbulan.jrxml");
+                JasperDesign jDesign = null;
+                jDesign = (JasperDesign) JRXmlLoader.load(rpt);
+                parameter.clear();
+                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
+                JasperPrint jPrint = JasperFillManager.fillReport(jReport,
+                        parameter,koneksi.getKoneksi());
+                JasperViewer.viewReport(jPrint,false);
+            }catch(JRException e){
+                JOptionPane.showMessageDialog(null, "Laporan Tidak Ditemukan " + e);
+            }
+        }catch(HeadlessException e){
+            JOptionPane.showConfirmDialog(null, e);
+        }
+    }
 }

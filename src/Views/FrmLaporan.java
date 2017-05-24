@@ -5,9 +5,11 @@
  */
 package Views;
 
+import Reports.ViewReport;
+
 /**
  *
- * @author su
+ * @author RahmatSubekti
  */
 public class FrmLaporan extends javax.swing.JFrame {
 
@@ -16,6 +18,8 @@ public class FrmLaporan extends javax.swing.JFrame {
      */
     public FrmLaporan() {
         initComponents();
+        setLocationRelativeTo(this);
+        this.setExtendedState(this.MAXIMIZED_BOTH);
     }
 
     /**
@@ -28,18 +32,117 @@ public class FrmLaporan extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        iconTransaksi = new javax.swing.JLabel();
+        iconTPerbulan = new javax.swing.JLabel();
+        iconObat = new javax.swing.JLabel();
+        iconObatTerjual = new javax.swing.JLabel();
+        iconPelangaan = new javax.swing.JLabel();
+        iconPAktif = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        iconTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/transaksi64.png"))); // NOI18N
+        iconTransaksi.setText("Transaksi");
+        iconTransaksi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconTransaksi.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconTransaksiMouseClicked(evt);
+            }
+        });
+
+        iconTPerbulan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/001-column.png"))); // NOI18N
+        iconTPerbulan.setText("Transaksi Perbulan");
+        iconTPerbulan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconTPerbulan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconTPerbulan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconTPerbulanMouseClicked(evt);
+            }
+        });
+
+        iconObat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/obat64.png"))); // NOI18N
+        iconObat.setText("Stok Obat");
+        iconObat.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconObat.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconObat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconObatMouseClicked(evt);
+            }
+        });
+
+        iconObatTerjual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/004-medical.png"))); // NOI18N
+        iconObatTerjual.setText("Obat Terjual");
+        iconObatTerjual.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconObatTerjual.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconObatTerjual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconObatTerjualMouseClicked(evt);
+            }
+        });
+
+        iconPelangaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pelanggan64.png"))); // NOI18N
+        iconPelangaan.setText("Pelanggan");
+        iconPelangaan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconPelangaan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconPelangaan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconPelangaanMouseClicked(evt);
+            }
+        });
+
+        iconPAktif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/005-medical-1.png"))); // NOI18N
+        iconPAktif.setText("Pelanggan Aktif");
+        iconPAktif.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        iconPAktif.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        iconPAktif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconPAktifMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(iconTPerbulan)
+                        .addGap(80, 80, 80)
+                        .addComponent(iconObatTerjual))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(iconTransaksi)
+                        .addGap(94, 94, 94)
+                        .addComponent(iconObat)))
+                .addGap(81, 81, 81)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(iconPelangaan)
+                    .addComponent(iconPAktif))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 218, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iconObat)
+                            .addComponent(iconTransaksi)
+                            .addComponent(iconPelangaan))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iconObatTerjual, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(iconPAktif, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(iconTPerbulan))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -47,20 +150,62 @@ public class FrmLaporan extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        FrmMenu menu = new FrmMenu();
+        menu.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void iconTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconTransaksiMouseClicked
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.transaksi();
+    }//GEN-LAST:event_iconTransaksiMouseClicked
+
+    private void iconObatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconObatMouseClicked
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.obat();
+    }//GEN-LAST:event_iconObatMouseClicked
+
+    private void iconPelangaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPelangaanMouseClicked
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.pelanggan();
+    }//GEN-LAST:event_iconPelangaanMouseClicked
+
+    private void iconTPerbulanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconTPerbulanMouseClicked
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.transaksiPerbulan();
+    }//GEN-LAST:event_iconTPerbulanMouseClicked
+
+    private void iconObatTerjualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconObatTerjualMouseClicked
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.obatTerjual();
+    }//GEN-LAST:event_iconObatTerjualMouseClicked
+
+    private void iconPAktifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconPAktifMouseClicked
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.pelangganAktif();
+    }//GEN-LAST:event_iconPAktifMouseClicked
 
     /**
      * @param args the command line arguments
@@ -98,6 +243,12 @@ public class FrmLaporan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel iconObat;
+    private javax.swing.JLabel iconObatTerjual;
+    private javax.swing.JLabel iconPAktif;
+    private javax.swing.JLabel iconPelangaan;
+    private javax.swing.JLabel iconTPerbulan;
+    private javax.swing.JLabel iconTransaksi;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
