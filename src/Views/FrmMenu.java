@@ -6,23 +6,7 @@
 package Views;
 
 import Entity.Login;
-import Koneksi.KoneksiDB;
-import java.awt.HeadlessException;
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
+import Reports.ViewReport;
 
 /**
  *
@@ -85,9 +69,13 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         mnAkun = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        mnLaporanTransaksi = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        mnStok = new javax.swing.JMenuItem();
+        mnObatTerjual = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
         mnLapPelanggan = new javax.swing.JMenuItem();
         PelangganAktif = new javax.swing.JMenuItem();
-        mnLaporanTransaksi = new javax.swing.JMenuItem();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -322,6 +310,32 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenu1.setText("Laporan");
 
+        mnLaporanTransaksi.setText("Transaksi");
+        mnLaporanTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnLaporanTransaksiActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnLaporanTransaksi);
+        jMenu1.add(jSeparator5);
+
+        mnStok.setText("Stok Obat");
+        mnStok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnStokActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnStok);
+
+        mnObatTerjual.setText("Obat Terjual");
+        mnObatTerjual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnObatTerjualActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnObatTerjual);
+        jMenu1.add(jSeparator6);
+
         mnLapPelanggan.setText("Pelanggan");
         mnLapPelanggan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,14 +351,6 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(PelangganAktif);
-
-        mnLaporanTransaksi.setText("Transaksi");
-        mnLaporanTransaksi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLaporanTransaksiActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnLaporanTransaksi);
 
         BarMenu.add(jMenu1);
 
@@ -493,72 +499,33 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void mnLapPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLapPelangganActionPerformed
         // TODO add your handling code here:
-        try{
-            KoneksiDB koneksi = new KoneksiDB();
-            koneksi.getKoneksi();
-            try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
-                File rpt = new File("src/Reports/Pelanggan.jrxml");
-                JasperDesign jDesign = null;
-                jDesign = (JasperDesign) JRXmlLoader.load(rpt);
-                parameter.clear();
-                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
-                JasperPrint jPrint = JasperFillManager.fillReport(jReport,
-                        parameter,koneksi.getKoneksi());
-                JasperViewer.viewReport(jPrint,false);
-            }catch(JRException e){
-                JOptionPane.showMessageDialog(null, "Laporan Tidak Ditemukan " + e);
-            }
-        }catch(HeadlessException e){
-            JOptionPane.showConfirmDialog(null, e);
-        }
+        ViewReport report = new ViewReport();
+        report.pelanggan();
     }//GEN-LAST:event_mnLapPelangganActionPerformed
 
     private void PelangganAktifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PelangganAktifActionPerformed
         // TODO add your handling code here:
-            try{
-            KoneksiDB koneksi = new KoneksiDB();
-            koneksi.getKoneksi();
-            try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
-                File rpt = new File("src/Reports/PelangganAktif.jrxml");
-                JasperDesign jDesign = null;
-                jDesign = (JasperDesign) JRXmlLoader.load(rpt);
-                parameter.clear();
-                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
-                JasperPrint jPrint = JasperFillManager.fillReport(jReport,
-                        parameter,koneksi.getKoneksi());
-                JasperViewer.viewReport(jPrint,false);
-            }catch(JRException e){
-                JOptionPane.showMessageDialog(null, "Laporan Tidak Ditemukan " + e);
-            }
-        }catch(HeadlessException e){
-            JOptionPane.showConfirmDialog(null, e);
-        }
+        ViewReport report = new ViewReport();
+        report.pelangganAktif();
     }//GEN-LAST:event_PelangganAktifActionPerformed
 
     private void mnLaporanTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLaporanTransaksiActionPerformed
         // TODO add your handling code here:
-            try{
-            KoneksiDB koneksi = new KoneksiDB();
-            koneksi.getKoneksi();
-            try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
-                File rpt = new File("src/Reports/Transaksi.jrxml");
-                JasperDesign jDesign = null;
-                jDesign = (JasperDesign) JRXmlLoader.load(rpt);
-                parameter.clear();
-                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
-                JasperPrint jPrint = JasperFillManager.fillReport(jReport,
-                        parameter,koneksi.getKoneksi());
-                JasperViewer.viewReport(jPrint,false);
-            }catch(JRException e){
-                JOptionPane.showMessageDialog(null, "Laporan Tidak Ditemukan " + e);
-            }
-        }catch(HeadlessException e){
-            JOptionPane.showConfirmDialog(null, e);
-        }
+        ViewReport report = new ViewReport();
+        report.transaksi();
     }//GEN-LAST:event_mnLaporanTransaksiActionPerformed
+
+    private void mnStokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnStokActionPerformed
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.obat();
+    }//GEN-LAST:event_mnStokActionPerformed
+
+    private void mnObatTerjualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnObatTerjualActionPerformed
+        // TODO add your handling code here:
+        ViewReport report = new ViewReport();
+        report.obatTerjual();
+    }//GEN-LAST:event_mnObatTerjualActionPerformed
 
     /**
      * @param args the command line arguments
@@ -614,6 +581,8 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelKaryawan;
     private javax.swing.JLabel labelLaporan;
@@ -631,7 +600,9 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnLogin;
     private javax.swing.JMenu mnMaster;
     private javax.swing.JMenuItem mnObat;
+    private javax.swing.JMenuItem mnObatTerjual;
     private javax.swing.JMenuItem mnPelanggan;
+    private javax.swing.JMenuItem mnStok;
     private javax.swing.JMenuItem mnSupplier;
     // End of variables declaration//GEN-END:variables
 }

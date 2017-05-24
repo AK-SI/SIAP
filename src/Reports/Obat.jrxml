@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfe8d925-7844-40fb-b3e6-7b2b0862ea53">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#D9CFC3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFF3E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="DataObat" uuid="8075c691-76f4-4dca-8f43-b4d1a6b57d45">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     data_obat.`obat_id_obat` AS data_obat_obat_id_obat,
+     data_obat.`obat_nama_obat` AS data_obat_obat_nama_obat,
+     data_obat.`jenis_obat_jenis` AS data_obat_jenis_obat_jenis,
+     data_obat.`supplier_nama` AS data_obat_supplier_nama,
+     data_obat.`obat_stok` AS data_obat_obat_stok
+FROM
+     `data_obat` data_obat]]>
+		</queryString>
+		<field name="data_obat_obat_id_obat" class="java.lang.String"/>
+		<field name="data_obat_obat_nama_obat" class="java.lang.String"/>
+		<field name="data_obat_jenis_obat_jenis" class="java.lang.String"/>
+		<field name="data_obat_supplier_nama" class="java.lang.String"/>
+		<field name="data_obat_obat_stok" class="java.lang.Integer"/>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     data_obat.`obat_id_obat` AS data_obat_obat_id_obat,
+     data_obat.`obat_nama_obat` AS data_obat_obat_nama_obat,
+     data_obat.`jenis_obat_jenis` AS data_obat_jenis_obat_jenis,
+     data_obat.`supplier_nama` AS data_obat_supplier_nama,
+     data_obat.`obat_stok` AS data_obat_obat_stok
+FROM
+     `data_obat` data_obat]]>
+	</queryString>
+	<field name="data_obat_obat_id_obat" class="java.lang.String"/>
+	<field name="data_obat_obat_nama_obat" class="java.lang.String"/>
+	<field name="data_obat_jenis_obat_jenis" class="java.lang.String"/>
+	<field name="data_obat_supplier_nama" class="java.lang.String"/>
+	<field name="data_obat_obat_stok" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="70" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="555" height="50" uuid="f915b0ea-a001-43a0-b6f0-52a351b266b8"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DataObat" uuid="4f7170ca-45c3-4669-8f94-9385efe05a6b">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="74" uuid="e0140abf-a3e9-44df-bea9-72eeb4e7f34c">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="74" height="22" uuid="75e92f73-c48c-4090-8364-f65cfe6acca3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[ID Obat]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="74" height="20" uuid="f6a4c652-350e-4061-ad54-74b5a521e6dd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_obat_obat_id_obat}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="151" uuid="4d5f24e0-8dad-4621-ad42-484742058510">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="151" height="22" uuid="34a73926-ece6-4fe3-86a9-5858c30875d5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nama Obat]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="151" height="20" uuid="292403dc-c168-4ce1-8da4-4666ca34897d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_obat_obat_nama_obat}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="105" uuid="c0977912-c9d5-435b-8023-6a0098af5e41">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="105" height="22" uuid="7fe4b868-bb06-40d9-857f-c6973bd4ba8f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Jenis]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="105" height="20" uuid="606b2397-dfe2-46cf-9a45-0d5c49e73671"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_obat_jenis_obat_jenis}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="134" uuid="22ae125a-8097-4a9a-9b4e-fb47c59d5c03">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="134" height="22" uuid="c585e751-c31c-4827-8988-1258c71c8a6e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Supplier]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="134" height="20" uuid="a3ba9f2d-fcad-46fd-937c-04fdf7ce2c0c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_obat_supplier_nama}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="834d75f4-aa46-4e25-866d-bd3a77fc8113">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="22" uuid="3a5cd42a-713c-45bc-b143-d439da231447"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Stok]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="c0231ed6-5be7-4385-9042-5ed0435ac2ee"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_obat_obat_stok}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

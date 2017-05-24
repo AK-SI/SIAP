@@ -68,10 +68,10 @@ FROM
 		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="58" splitType="Stretch">
+		<band height="48" splitType="Stretch">
 			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<componentElement>
-				<reportElement key="table" style="table" x="0" y="0" width="555" height="58" uuid="8ef672ae-2ddc-4499-8290-ce84a9471d6c"/>
+				<reportElement key="table" style="table" x="0" y="0" width="555" height="48" uuid="8ef672ae-2ddc-4499-8290-ce84a9471d6c"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="DataTransaksi" uuid="9a8b8713-4747-470d-9bde-09fa69eb320d">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>

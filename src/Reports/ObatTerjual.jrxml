@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3cf104bd-0f71-4e07-a299-a69ae1d3270e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FA8F00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFF4E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ObatTerjual" uuid="2abd123f-260f-41f4-94ea-37454b9fc459">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     obat_terjual.`obat_id_obat` AS obat_terjual_obat_id_obat,
+     obat_terjual.`obat_nama_obat` AS obat_terjual_obat_nama_obat,
+     obat_terjual.`terjual` AS obat_terjual_terjual,
+     obat_terjual.`haga_terjual` AS obat_terjual_haga_terjual,
+     obat_terjual.`dalam_transaksi` AS obat_terjual_dalam_transaksi
+FROM
+     `obat_terjual` obat_terjual]]>
+		</queryString>
+		<field name="obat_terjual_obat_id_obat" class="java.lang.String"/>
+		<field name="obat_terjual_obat_nama_obat" class="java.lang.String"/>
+		<field name="obat_terjual_terjual" class="java.math.BigDecimal"/>
+		<field name="obat_terjual_haga_terjual" class="java.math.BigDecimal"/>
+		<field name="obat_terjual_dalam_transaksi" class="java.lang.Long"/>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     obat_terjual.`obat_id_obat` AS obat_terjual_obat_id_obat,
+     obat_terjual.`obat_nama_obat` AS obat_terjual_obat_nama_obat,
+     obat_terjual.`terjual` AS obat_terjual_terjual,
+     obat_terjual.`haga_terjual` AS obat_terjual_haga_terjual,
+     obat_terjual.`dalam_transaksi` AS obat_terjual_dalam_transaksi
+FROM
+     `obat_terjual` obat_terjual]]>
+	</queryString>
+	<field name="obat_terjual_obat_id_obat" class="java.lang.String"/>
+	<field name="obat_terjual_obat_nama_obat" class="java.lang.String"/>
+	<field name="obat_terjual_terjual" class="java.math.BigDecimal"/>
+	<field name="obat_terjual_haga_terjual" class="java.math.BigDecimal"/>
+	<field name="obat_terjual_dalam_transaksi" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="555" height="50" uuid="fd613774-5e36-4d7c-bbce-c3b5357bae6b"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ObatTerjual" uuid="918e8765-9ce8-48d5-9a7b-ef2d6ef778fc">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="78" uuid="ff9a18a5-046d-45b3-8aff-c1dafbed6b8c">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="78" height="23" uuid="f1acdf0a-7d0d-45b0-a103-e0e52e58dd41"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[ID Obat]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="78" height="20" uuid="7fca8d16-75af-4378-8ee8-4de5412e6ffa"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{obat_terjual_obat_id_obat}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="159" uuid="dc2c0ac4-058f-4928-97aa-3710c74f9f4d">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="159" height="23" uuid="edf1e365-7e74-4164-b242-055f6e31e0fe"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nama Obat]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="159" height="20" uuid="b4ec6abf-82c1-4074-997c-69fa124a9368"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{obat_terjual_obat_nama_obat}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="95" uuid="3f68786e-a8da-424a-8c54-fb0120b27968">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="95" height="23" uuid="7eddc72d-a319-4d30-a843-117234ea44df"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Jumlah Terjual]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="95" height="20" uuid="d00666b8-1739-43c6-9a44-b8ace0339a77"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{obat_terjual_terjual}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="124" uuid="19a3fc7e-2598-47c7-a91c-4ab459400a10">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="124" height="23" uuid="cb94ba32-7e7b-4c40-aba2-61b118e1841f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Harga Terjual]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="124" height="20" uuid="7562584a-0726-4f8d-9696-74a8d0cb8ccd"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{obat_terjual_haga_terjual}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="99" uuid="60cb8fbf-bb08-42a8-866d-92d55cfca0cd">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="99" height="23" uuid="7389c3cf-6e78-46de-b861-abc4f11d6e9d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Transaksi]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="99" height="20" uuid="d86dc293-3bb7-4682-9b39-6fdc33cc9fd9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{obat_terjual_dalam_transaksi}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
