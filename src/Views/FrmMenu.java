@@ -253,6 +253,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu2.setText("Setting");
 
         mnAkun.setText("Akun Setting");
+        mnAkun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnAkunActionPerformed(evt);
+            }
+        });
         jMenu2.add(mnAkun);
 
         BarMenu.add(jMenu2);
@@ -339,7 +344,6 @@ public class FrmMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         FrmPelanggan pelanggan = new FrmPelanggan();
         pelanggan.setVisible(true);
-        
     }//GEN-LAST:event_mnPelangganActionPerformed
 
     private void mnKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKaryawanActionPerformed
@@ -451,6 +455,13 @@ public class FrmMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_iconLaporanMouseClicked
 
+    private void mnAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAkunActionPerformed
+        // TODO add your handling code here:
+        FrmSettingAkun akun = new FrmSettingAkun();
+        akun.login = this.login;
+        akun.setVisible(true);
+    }//GEN-LAST:event_mnAkunActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -462,7 +473,7 @@ public class FrmMenu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
