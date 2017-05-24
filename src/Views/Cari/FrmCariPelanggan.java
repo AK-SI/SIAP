@@ -34,7 +34,7 @@ public class FrmCariPelanggan extends javax.swing.JDialog {
         PelangganDAO = Factory.getPelangganDAO();
         tableHeader = new String[]{
             "ID",
-            "Supplier",
+            "Pelanggan",
             "No. Telp",
             "Alamat"
         };

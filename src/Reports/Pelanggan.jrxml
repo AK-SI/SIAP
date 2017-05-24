@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="72aca51d-8d2a-4905-887c-4e9e278ef03b">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5fae4a18-7a67-4079-8297-de3fa5516756">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFE2BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFF3E6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="DataPelanggan" uuid="a5e0dc5c-0584-47b9-84e7-11ef9cfd3770">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     pelanggan.`id_pelanggan` AS pelanggan_id_pelanggan,
+     pelanggan.`nama` AS pelanggan_nama,
+     pelanggan.`telpon` AS pelanggan_telpon,
+     pelanggan.`alamat` AS pelanggan_alamat
+FROM
+     `pelanggan` pelanggan]]>
+		</queryString>
+		<field name="pelanggan_id_pelanggan" class="java.lang.String"/>
+		<field name="pelanggan_nama" class="java.lang.String"/>
+		<field name="pelanggan_telpon" class="java.lang.String"/>
+		<field name="pelanggan_alamat" class="java.lang.String"/>
+	</subDataset>
 	<queryString language="SQL">
 		<![CDATA[SELECT
      pelanggan.`id_pelanggan` AS pelanggan_id_pelanggan,
@@ -16,9 +51,6 @@ FROM
 	<field name="pelanggan_nama" class="java.lang.String"/>
 	<field name="pelanggan_telpon" class="java.lang.String"/>
 	<field name="pelanggan_alamat" class="java.lang.String"/>
-	<group name="pelanggan_id_pelanggan">
-		<groupExpression><![CDATA[$F{pelanggan_id_pelanggan}]]></groupExpression>
-	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -29,43 +61,91 @@ FROM
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="138" height="20" uuid="2f33b6ab-fe4a-4f2e-99cf-c34c88a553ff"/>
-				<text><![CDATA[pelanggan_id_pelanggan]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="138" y="0" width="138" height="20" uuid="fab41cf1-248a-4a5a-83ea-d401dae2d97c"/>
-				<text><![CDATA[pelanggan_telpon]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="276" y="0" width="138" height="20" uuid="a539482d-a241-4244-b21d-9d028ebd7f3f"/>
-				<text><![CDATA[pelanggan_nama]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="414" y="0" width="138" height="20" uuid="5836e729-f53e-4d9f-ac15-1375f0cb1476"/>
-				<text><![CDATA[pelanggan_alamat]]></text>
-			</staticText>
-		</band>
+		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="138" height="20" uuid="3bc9dc25-1aa8-4bf9-bd3d-fb2c576c00d8"/>
-				<textFieldExpression><![CDATA[$F{pelanggan_id_pelanggan}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="138" y="0" width="138" height="20" uuid="ed72555f-8f2e-44fa-bc39-83e9bab0db09"/>
-				<textFieldExpression><![CDATA[$F{pelanggan_telpon}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="276" y="0" width="138" height="20" uuid="0fbd3712-3fb2-458d-befc-dbef3a407315"/>
-				<textFieldExpression><![CDATA[$F{pelanggan_nama}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="414" y="0" width="138" height="20" uuid="415581e6-137f-422a-a309-82c0ccf62aa8"/>
-				<textFieldExpression><![CDATA[$F{pelanggan_alamat}]]></textFieldExpression>
-			</textField>
+		<band height="67" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="555" height="67" uuid="f44f2928-ec7a-4cb4-95ef-544d7d81c44f"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DataPelanggan" uuid="c7767936-8d9b-49c6-bf18-63a59c41a0f8">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="71" uuid="d2469853-4438-4390-8f87-bd5c155acc67">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="71" height="23" uuid="6999b84d-421d-4ca3-9792-1c40c2bc0e5b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[ID Pelanggan]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="71" height="20" uuid="8c9a4c33-1518-4d4a-a66b-9acc78bd58ff"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{pelanggan_id_pelanggan}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="140" uuid="e0442602-e99b-4f55-8786-4bbe3af95c69">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="140" height="23" uuid="6c82c6ca-8e8a-4ef0-83cf-e064148a0147"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Nama]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="140" height="20" uuid="6a728f1d-48f9-418b-97e5-a03e2a338f28"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{pelanggan_nama}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="126" uuid="e7bac3bd-1ceb-4c63-9302-fa3430838e2e">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="126" height="23" uuid="d57ab61e-ba6c-414d-a605-9f582217c521"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[No. Telpon]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="126" height="20" uuid="d3545309-acdb-44ef-94ab-1e00ed28c4f8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{pelanggan_telpon}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="216" uuid="079ad733-5429-4499-b34e-9a02e365c87d">
+						<jr:columnHeader style="table_CH" height="23" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="216" height="23" uuid="64e086dc-1ef4-4f81-b56a-3bc2a1297fb2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Alamat]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="216" height="20" uuid="2b4a98ef-f52d-4ed9-ae2b-15c8059cff6e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{pelanggan_alamat}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 	</detail>
 	<columnFooter>

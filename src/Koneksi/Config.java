@@ -19,7 +19,6 @@ import java.util.logging.Logger;
  * @author su
  */
 public class Config {
-    
     public static Properties prop = new Properties();
     public void SetConfig(String host, String port, String db, String username, String password){
         try{

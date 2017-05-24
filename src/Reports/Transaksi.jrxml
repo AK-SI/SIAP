@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="42581628-5e9a-404b-b8b1-e1e92b886743">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#BFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#E6FFE6">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="DataTransaksi" uuid="9724fc35-a49a-4c0b-bb29-9e8f584ffd23">
+		<queryString language="SQL">
+			<![CDATA[SELECT
+     data_transaksi.`transaksi_id_transaksi` AS data_transaksi_transaksi_id_transaksi,
+     data_transaksi.`pelanggan_nama` AS data_transaksi_pelanggan_nama,
+     data_transaksi.`transaksi_tanggal` AS data_transaksi_transaksi_tanggal,
+     data_transaksi.`jumlah` AS data_transaksi_jumlah,
+     data_transaksi.`transaksi_total_bayar` AS data_transaksi_transaksi_total_bayar
+FROM
+     `data_transaksi` data_transaksi]]>
+		</queryString>
+		<field name="data_transaksi_transaksi_id_transaksi" class="java.lang.String"/>
+		<field name="data_transaksi_pelanggan_nama" class="java.lang.String"/>
+		<field name="data_transaksi_transaksi_tanggal" class="java.sql.Date"/>
+		<field name="data_transaksi_jumlah" class="java.math.BigDecimal"/>
+		<field name="data_transaksi_transaksi_total_bayar" class="java.lang.Integer"/>
+	</subDataset>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     data_transaksi.`transaksi_id_transaksi` AS data_transaksi_transaksi_id_transaksi,
+     data_transaksi.`pelanggan_nama` AS data_transaksi_pelanggan_nama,
+     data_transaksi.`transaksi_tanggal` AS data_transaksi_transaksi_tanggal,
+     data_transaksi.`jumlah` AS data_transaksi_jumlah,
+     data_transaksi.`transaksi_total_bayar` AS data_transaksi_transaksi_total_bayar
+FROM
+     `data_transaksi` data_transaksi]]>
+	</queryString>
+	<field name="data_transaksi_transaksi_id_transaksi" class="java.lang.String"/>
+	<field name="data_transaksi_pelanggan_nama" class="java.lang.String"/>
+	<field name="data_transaksi_transaksi_tanggal" class="java.sql.Date"/>
+	<field name="data_transaksi_jumlah" class="java.math.BigDecimal"/>
+	<field name="data_transaksi_transaksi_total_bayar" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="555" height="58" uuid="8ef672ae-2ddc-4499-8290-ce84a9471d6c"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="DataTransaksi" uuid="9a8b8713-4747-470d-9bde-09fa69eb320d">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="0fc42567-813b-467a-a6e4-162e06bcd9a7">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="22" uuid="71de97b1-b0b3-41db-bdfd-8513e7203476"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[No. Nota]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="c7cf52ff-5a8a-49f4-8176-21a9e1fddd5e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_transaksi_transaksi_id_transaksi}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="157" uuid="7f8faab4-4cc8-466c-b6d0-fb9c09478db3">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="157" height="22" uuid="d664c808-1744-479d-b1b1-afc1ffccf231"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Pelanggan]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="157" height="20" uuid="7b1aa0d4-b6f7-4493-938c-003f168a189f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_transaksi_pelanggan_nama}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="113" uuid="ac0f454c-f0a3-4193-87d4-aa4fbe266350">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="113" height="22" uuid="0f284c55-fc2c-4150-b728-55ecb0e74885"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Tanggal Transaksi]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField pattern="dd MMMMM yyyy">
+								<reportElement x="0" y="0" width="113" height="20" uuid="11e8ad7c-528d-4d49-92ac-849137293648"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_transaksi_transaksi_tanggal}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="be3b6246-1e5a-4895-aa3a-1e61d6c84253">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="22" uuid="ce33d2b7-4ab1-433e-9058-82c10d92796b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Jumlah Obat]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="a9bbb23d-f1f7-45b2-a18c-50e19f5ee203"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_transaksi_jumlah}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="103" uuid="6065d431-5783-41b7-9d2b-1e0ec40a36db">
+						<jr:columnHeader style="table_CH" height="22" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="103" height="22" uuid="fe425221-493c-4c5a-8fb4-42ebc6f8e898"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Bayar]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="103" height="20" uuid="eaaaa726-db4d-4d26-b228-0088c01d8bc6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{data_transaksi_transaksi_total_bayar}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
