@@ -72,11 +72,12 @@ public class ImPelanggan implements IPelanggan {
             listPelanggan = new ArrayList<>();
             try{
                 while(rsPelanggan.next()){
-                    Pelanggan p = new Pelanggan();
-                    p.setId_pelanggan(rsPelanggan.getString("id_pelanggan"));
-                    p.setNama(rsPelanggan.getString("nama"));
-                    p.setTelpon(rsPelanggan.getString("telpon"));
-                    p.setAlamat(rsPelanggan.getString("alamat"));
+                    Pelanggan p = new Pelanggan(
+                            rsPelanggan.getString("id_pelanggan"),
+                            rsPelanggan.getString("nama"),
+                            rsPelanggan.getString("telpon"),
+                            rsPelanggan.getString("alamat")
+                    );
                     listPelanggan.add(p);
                 }
                 rsPelanggan.close();

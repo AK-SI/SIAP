@@ -1,6 +1,7 @@
 package siap;
 
 import Koneksi.KoneksiDB;
+import Views.FrmLogin;
 import Views.FrmMenu;
 
 /*
@@ -21,7 +22,7 @@ public class SIAP {
     public static void main(String[] args) {
         KoneksiDB conn = new KoneksiDB();
         if (conn.getKoneksi() != null) {
-            FrmMenu menu = new FrmMenu();
+            FrmLogin menu = new FrmLogin();
             menu.setVisible(true);
         }
 

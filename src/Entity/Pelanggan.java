@@ -15,6 +15,13 @@ public class Pelanggan {
     private String telpon;
     private String alamat;
 
+    public Pelanggan(){}
+    public Pelanggan(String id_pelanggan, String nama, String telpon, String alamat){
+        this.id_pelanggan=id_pelanggan;
+        this.nama=nama;
+        this.telpon=telpon;
+        this.alamat=alamat;
+    }
     public String getId_pelanggan() {
         return id_pelanggan;
     }

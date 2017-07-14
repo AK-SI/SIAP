@@ -77,6 +77,7 @@ public class FrmCariJenisObat extends javax.swing.JDialog {
         txtSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cari Jenis Obat");
 
         tableJenis.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

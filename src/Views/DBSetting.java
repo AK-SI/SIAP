@@ -68,6 +68,7 @@ public class DBSetting extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Database Information");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -233,8 +234,8 @@ public class DBSetting extends javax.swing.JFrame {
                 txtPassword.getText());
 
             if (conn.getKoneksi() != null) {
-                FrmMenu menu = new FrmMenu();
-                menu.setVisible(true);
+                FrmLogin login = new FrmLogin();
+                login.setVisible(true);
                 this.dispose();
                 saveSetting=true;
             }else{

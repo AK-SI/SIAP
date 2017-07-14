@@ -13,6 +13,12 @@ public class Login {
     private String username;
     private String akses;
     private String password;
+    public Login(){}
+    public Login(String username, String akses, String password){
+        this.username=username;
+        this.akses=akses;
+        this.password=password;
+    }
 
     public String getUsername() {
         return username;

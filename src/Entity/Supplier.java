@@ -15,6 +15,13 @@ public class Supplier {
     private String telepon;
     private String alamat;
 
+    public Supplier(){}
+    public Supplier(String id_supplier, String nama, String telpon, String alamat){
+        this.id_supplier=id_supplier;
+        this.nama=nama;
+        this.telepon=telpon;
+        this.alamat=alamat;
+    }
     public String getId_supplier() {
         return id_supplier;
     }

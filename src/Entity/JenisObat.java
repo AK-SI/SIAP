@@ -14,6 +14,12 @@ public class JenisObat {
     private String jenis;
     private String keterangan;
 
+    public JenisObat(){}
+    public JenisObat(String id_jenis, String jenis, String keterangan){
+        this.id_jenis=id_jenis;
+        this.jenis=jenis;
+        this.keterangan=keterangan;
+    }
     public String getId_jenis() {
         return id_jenis;
     }

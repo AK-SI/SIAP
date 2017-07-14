@@ -72,11 +72,12 @@ public class ImSupplier implements ISupplier{
             listSupplier = new ArrayList<>();
             try{
                 while(rsSupplier.next()){
-                    Supplier s = new Supplier();
-                    s.setId_supplier(rsSupplier.getString("id_supplier"));
-                    s.setNama(rsSupplier.getString("nama"));
-                    s.setTelepon(rsSupplier.getString("telpon"));
-                    s.setAlamat(rsSupplier.getString("alamat"));
+                    Supplier s = new Supplier(
+                            rsSupplier.getString("id_supplier"),
+                            rsSupplier.getString("nama"),
+                            rsSupplier.getString("telpon"),
+                            rsSupplier.getString("alamat")
+                    );
                     listSupplier.add(s);
                 }
                 rsSupplier.close();

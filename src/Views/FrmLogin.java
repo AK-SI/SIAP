@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 public class FrmLogin extends javax.swing.JFrame {
     private ILogin loginDAO;
     private List<Login> listLogin;
-    public String id_karyawan, namakaryawan;
 
     /**
      * Creates new form FrmLogin
@@ -47,6 +46,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         jLabel1.setText("Username");
 

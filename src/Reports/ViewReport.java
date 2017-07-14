@@ -30,7 +30,7 @@ public class ViewReport {
             KoneksiDB koneksi = new KoneksiDB();
             koneksi.getKoneksi();
             try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
+                Map<String, Object> parameter = new HashMap<>();
                 File rpt = new File("src/Reports/Obat.jrxml");
                 JasperDesign jDesign = null;
                 jDesign = (JasperDesign) JRXmlLoader.load(rpt);
@@ -51,7 +51,7 @@ public class ViewReport {
             KoneksiDB koneksi = new KoneksiDB();
             koneksi.getKoneksi();
             try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
+                Map<String, Object> parameter = new HashMap<>();
                 File rpt = new File("src/Reports/ObatTerjual.jrxml");
                 JasperDesign jDesign = null;
                 jDesign = (JasperDesign) JRXmlLoader.load(rpt);
@@ -73,7 +73,7 @@ public class ViewReport {
             KoneksiDB koneksi = new KoneksiDB();
             koneksi.getKoneksi();
             try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
+                Map<String, Object> parameter = new HashMap<>();
                 File rpt = new File("src/Reports/Pelanggan.jrxml");
                 JasperDesign jDesign = null;
                 jDesign = (JasperDesign) JRXmlLoader.load(rpt);
@@ -95,7 +95,7 @@ public class ViewReport {
             KoneksiDB koneksi = new KoneksiDB();
             koneksi.getKoneksi();
             try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
+                Map<String, Object> parameter = new HashMap<>();
                 File rpt = new File("src/Reports/PelangganAktif.jrxml");
                 JasperDesign jDesign = null;
                 jDesign = (JasperDesign) JRXmlLoader.load(rpt);
@@ -117,7 +117,7 @@ public class ViewReport {
             KoneksiDB koneksi = new KoneksiDB();
             koneksi.getKoneksi();
             try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
+                Map<String, Object> parameter = new HashMap<>();
                 File rpt = new File("src/Reports/Transaksi.jrxml");
                 JasperDesign jDesign = null;
                 jDesign = (JasperDesign) JRXmlLoader.load(rpt);
@@ -139,7 +139,7 @@ public class ViewReport {
             KoneksiDB koneksi = new KoneksiDB();
             koneksi.getKoneksi();
             try{
-                Map<String, Object> parameter = new HashMap<String, Object>();
+                Map<String, Object> parameter = new HashMap<>();
                 File rpt = new File("src/Reports/TransaksiPerbulan.jrxml");
                 JasperDesign jDesign = null;
                 jDesign = (JasperDesign) JRXmlLoader.load(rpt);

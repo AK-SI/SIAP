@@ -79,6 +79,7 @@ public class FrmCariPelanggan extends javax.swing.JDialog {
         txtSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cari Pelanggan");
 
         tablePelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

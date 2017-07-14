@@ -79,14 +79,15 @@ public class ImObat implements IObat{
             listObat = new ArrayList<>();
             try{
                 while(rsObat.next()){
-                    Obat obat = new Obat();
-                    obat.setId_obat(rsObat.getString("id_obat"));
-                    obat.setNama_obat(rsObat.getString("nama_obat"));
-                    obat.setId_jenis(rsObat.getString("id_jenis"));
-                    obat.setId_supplier(rsObat.getString("id_supplier"));
-                    obat.setHarga_jual(rsObat.getString("harga_jual"));
-                    obat.setHarga_beli(rsObat.getString("harga_beli"));
-                    obat.setStok(rsObat.getString("stok"));
+                    Obat obat = new Obat(
+                            rsObat.getString("id_obat"),
+                            rsObat.getString("nama_obat"),
+                            rsObat.getString("id_jenis"),
+                            rsObat.getString("id_supplier"),
+                            rsObat.getInt("harga_jual"),
+                            rsObat.getInt("harga_beli"),
+                            rsObat.getInt("stok")
+                    );
                     listObat.add(obat);
                 }
                 rsObat.close();

@@ -16,6 +16,14 @@ public class Karyawan {
     private String alamat;
     private String jabatan;
 
+    public Karyawan(){}
+    public Karyawan(String nik, String nama, String telpon, String alamat, String jabatan){
+        this.nik=nik;
+        this.nama=nama;
+        this.telpon=telpon;
+        this.alamat=alamat;
+        this.jabatan=jabatan;
+    }
     public String getNik() {
         return nik;
     }

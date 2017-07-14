@@ -13,6 +13,9 @@ create table karyawan(
     jabatan varchar(15)
 )engine=innodb;
 
+insert into karyawan values('N000001','rahmat','404','alamat','admin');
+insert into login_karyawan values('N000001','admin','r');
+
 create table login_karyawan(
     nik varchar(7) not null,
     akses varchar(15) not null,

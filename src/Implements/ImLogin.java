@@ -70,10 +70,11 @@ public class ImLogin implements ILogin{
             listLogin = new ArrayList<>();
             try{
                 while(rsLogin.next()){
-                    Login l = new Login();
-                    l.setUsername(rsLogin.getString("nik"));
-                    l.setPassword(rsLogin.getString("password"));
-                    l.setAkses(rsLogin.getString("akses"));
+                    Login l = new Login(
+                            rsLogin.getString("nik"),
+                            rsLogin.getString("password"),
+                            rsLogin.getString("akses")
+                    );
                     listLogin.add(l);
                 }
                 rsLogin.close();

@@ -46,9 +46,9 @@ public class FrmMenu extends javax.swing.JFrame {
         iconSupplier = new javax.swing.JLabel();
         iconKaryawan = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
-        lblNamaLogin = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         lblAkses = new javax.swing.JLabel();
+        lblNamaLogin = new javax.swing.JLabel();
         BarMenu = new javax.swing.JMenuBar();
         mnMaster = new javax.swing.JMenu();
         mnPelanggan = new javax.swing.JMenuItem();
@@ -134,7 +134,7 @@ public class FrmMenu extends javax.swing.JFrame {
         });
 
         iconKaryawan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/karyawan64.png"))); // NOI18N
-        iconKaryawan.setText("Pelanggan");
+        iconKaryawan.setText("Karyawan");
         iconKaryawan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         iconKaryawan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         iconKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,13 +179,13 @@ public class FrmMenu extends javax.swing.JFrame {
         );
 
         jToolBar1.setRollover(true);
-
-        lblNamaLogin.setText("jLabel1");
-        jToolBar1.add(lblNamaLogin);
         jToolBar1.add(jSeparator1);
 
         lblAkses.setText("jLabel1");
         jToolBar1.add(lblAkses);
+
+        lblNamaLogin.setText("jLabel1");
+        jToolBar1.add(lblNamaLogin);
 
         mnMaster.setText("Master");
 

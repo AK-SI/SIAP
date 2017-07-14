@@ -69,10 +69,11 @@ public class ImJenisObat implements IJenisObat{
             listJenisObat = new ArrayList<JenisObat>();
             try{
                 while(rsJenisObat.next()){
-                    JenisObat j = new JenisObat();
-                    j.setId_jenis(rsJenisObat.getString("id_jenis"));
-                    j.setJenis(rsJenisObat.getString("jenis"));
-                    j.setKeterangan(rsJenisObat.getString("keterangan"));
+                    JenisObat j = new JenisObat(
+                            rsJenisObat.getString("id_jenis"),
+                            rsJenisObat.getString("jenis"), 
+                            rsJenisObat.getString("keterangan")
+                    );
                     listJenisObat.add(j);
                 }
                 rsJenisObat.close();

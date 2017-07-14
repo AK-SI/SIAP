@@ -72,12 +72,13 @@ public class ImKaryawan implements IKaryawan{
             listKaryawan=new ArrayList<>();
             try{
                 while(rsKaryawan.next()){
-                    Karyawan k = new Karyawan();
-                    k.setNik(rsKaryawan.getString("nik"));
-                    k.setNama(rsKaryawan.getString("nama"));
-                    k.setTelpon(rsKaryawan.getString("telpon"));
-                    k.setAlamat(rsKaryawan.getString("alamat"));
-                    k.setJabatan(rsKaryawan.getString("jabatan"));
+                    Karyawan k = new Karyawan(
+                            rsKaryawan.getString("nik"),
+                            rsKaryawan.getString("nama"),
+                            rsKaryawan.getString("telpon"),
+                            rsKaryawan.getString("alamat"),
+                            rsKaryawan.getString("jabatan")
+                    );
                     listKaryawan.add(k);
                 }
                 rsKaryawan.close();
